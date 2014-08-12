@@ -1,0 +1,38 @@
+= form_for @place, :html => { :class => "form-horizontal place" } do |f|
+  - if @place.errors.any?
+    #error_expl.panel.panel-danger
+      .panel-heading
+        %h3.panel-title
+          = pluralize(@place.errors.count, "error")
+          prohibited this place from being saved:
+      .panel-body
+        %ul
+          - @place.errors.full_messages.each do |msg|
+            %li= msg
+  .control-group
+    = f.label :title, :class => 'control-label'
+    .controls
+      = f.text_field :title, :class => 'form-control'
+    = error_span(@place[:title])
+  .control-group
+    = f.label :subtitle, :class => 'control-label'
+    .controls
+      = f.text_field :subtitle, :class => 'form-control'
+    = error_span(@place[:subtitle])
+  .control-group
+    = f.label :description, :class => 'control-label'
+    .controls
+      = f.text_field :description, :class => 'form-control'
+    = error_span(@place[:description])
+  .control-group
+    = f.label :lat, :class => 'control-label'
+    .controls
+      = f.text_field :lat, :class => 'form-control'
+    = error_span(@place[:lat])
+  .control-group
+    = f.label :lng, :class => 'control-label'
+    .controls
+      = f.text_field :lng, :class => 'form-control'
+    = error_span(@place[:lng])
+  = f.submit nil, :class => 'btn btn-primary'
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), places_path, :class => 'btn btn-default'
