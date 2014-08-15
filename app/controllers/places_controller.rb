@@ -1,15 +1,29 @@
 class PlacesController < ApplicationController
   before_action :set_place, only: [:show, :edit, :update, :destroy]
 
+  def files
+    file = File.read(Rails.root + "app/assets/images/5.jpg")
+    send_data(file, :type => 'application/zip', :filename => "filename")
+  end
+  
   # GET /places
   # GET /places.json
   def index
     @places = Place.all
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @places }
+    end
   end
 
   # GET /places/1
   # GET /places/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.json { render json: @place }
+    end
   end
 
   # GET /places/new
