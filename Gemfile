@@ -38,3 +38,10 @@ gem 'unicorn'
 # gem 'debugger', group: [:development, :test]
 gem 'twitter-bootstrap-rails'
 gem 'haml'
+
+# for aws cloud storage
+gem 'fog'
+# photo resizing
+gem "mini_magick"
+# file upload solution
+gem 'carrierwave'
