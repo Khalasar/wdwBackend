@@ -35,9 +35,5 @@
       = f.text_field :lng, :class => 'form-control'
     = error_span(@place[:lng])
 
-    =#images[] returned to the album as an array. We use file_field_tag since images is not @album's attribute
-    = file_field_tag "images[]", type: :file, multiple: true
-
-
   = f.submit nil, :class => 'btn btn-primary'
   = link_to t('.cancel', :default => t("helpers.links.cancel")), places_path, :class => 'btn btn-default'

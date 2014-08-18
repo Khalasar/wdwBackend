@@ -2,7 +2,7 @@ class PhotosController < ApplicationController
  # GET /documents
   # GET /documents.json
   def index
-    @photos = Photo.all
+    @photos = place.photos
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +14,7 @@ class PhotosController < ApplicationController
   # GET /documents/1
   # GET /documents/1.json
   def show
-    @photo = Photo.find(params[:id])
+    @photo = place.photos.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,7 +25,7 @@ class PhotosController < ApplicationController
   # GET /documents/new
   # GET /documents/new.json
   def new
-    @photo = Photo.new
+    @photo = place.photos.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,14 +35,13 @@ class PhotosController < ApplicationController
 
   # GET /documents/1/edit
   def edit
-    @photo = Photo.find(params[:id])
+    @photo = place.photos.find(params[:id])
   end
 
   # POST /documents
   # POST /documents.json
   def create
-    p :photo_params => photo_params
-    @photo = Photo.new(photo_params)
+    @photo = place.photos.build(photo_params)
     @photo.save
 
     # respond_to do |format|
@@ -73,7 +72,7 @@ class PhotosController < ApplicationController
   # PUT /documents/1
   # PUT /documents/1.json
   def update
-    @photo = Photo.find(params[:id])
+    @photo = place.photos.find(params[:id])
 
     respond_to do |format|
       if @photo.update_attributes(photo_params)
@@ -89,7 +88,7 @@ class PhotosController < ApplicationController
   # DELETE /documents/1
   # DELETE /documents/1.json
   def destroy
-    @photo = Photo.find(params[:id])
+    @photo = place.photos.find(params[:id])
     @photo.destroy
 
     respond_to do |format|
@@ -102,5 +101,9 @@ class PhotosController < ApplicationController
 
   def photo_params
     params.require(:photo).permit(:file, :id)
+  end
+
+  def place
+    Place.find(params[:place_id])
   end
 end
