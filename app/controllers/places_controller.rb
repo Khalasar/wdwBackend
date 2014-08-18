@@ -40,6 +40,14 @@ class PlacesController < ApplicationController
   def create
     @place = Place.new(place_params)
 
+    if @place.save
+      if params[:images]
+        params[:images].each do |image|
+          @place.photos.create(image: image)
+        end
+      end
+    end
+
     respond_to do |format|
       if @place.save
         format.html { redirect_to @place, notice: 'Place was successfully created.' }
@@ -56,6 +64,11 @@ class PlacesController < ApplicationController
   def update
     respond_to do |format|
       if @place.update(place_params)
+        if params[:images]
+          params[:images].each do |image|
+            @place.photos.create(image: image)
+          end
+        end
         format.html { redirect_to @place, notice: 'Place was successfully updated.' }
         format.json { render :show, status: :ok, location: @place }
       else
