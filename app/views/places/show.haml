@@ -27,11 +27,6 @@
       = model_class.human_attribute_name(:lng)
       \:
   %dd= @place.lng
-  %dt
-    %strong
-      = model_class.human_attribute_name(:file)
-      \:
-  %dd= @place.file.url
 = link_to t('.back', :default => t("helpers.links.back")), places_path, :class => 'btn btn-default'
 -#
 = link_to t('.edit', :default => t("helpers.links.edit")), edit_place_path(@place), :class => 'btn btn-default'
