@@ -34,5 +34,12 @@
     .controls
       = f.text_field :lng, :class => 'form-control'
     = error_span(@place[:lng])
+
+  = f.fields_for :images do |image|
+    .control-group
+      = image.label :file, :class => 'control-label'
+      .controls
+        = image.file_field :file, :class => 'form-control'
+
   = f.submit nil, :class => 'btn btn-primary'
   = link_to t('.cancel', :default => t("helpers.links.cancel")), places_path, :class => 'btn btn-default'
