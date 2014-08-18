@@ -11,15 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140818071324) do
-
-  create_table "images", force: true do |t|
-    t.string   "description"
-    t.string   "image"
-    t.integer  "place_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20140812112426) do
 
   create_table "places", force: true do |t|
     t.string   "title",       null: false
