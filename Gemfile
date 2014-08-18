@@ -15,6 +15,7 @@ gem 'therubyracer',  platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-fileupload-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -45,3 +46,5 @@ gem 'fog'
 gem "mini_magick"
 # file upload solution
 gem 'carrierwave'
+
+gem 'bootstrap-sass', '~> 2.3.2.1'
