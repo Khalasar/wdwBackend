@@ -57,7 +57,10 @@ class PlacesController < ApplicationController
 
     respond_to do |format|
       if @place.save
-        format.html { redirect_to new_place_photo_path(@place), notice: 'Place was successfully created.' }
+        format.html do
+          redirect_to new_place_photo_path(@place),
+                      notice: 'Place was successfully created.'
+        end
         format.json { render :show, status: :created, location: @place }
       else
         format.html { render :new }
@@ -76,7 +79,9 @@ class PlacesController < ApplicationController
             @place.photos.create(image: image)
           end
         end
-        format.html { redirect_to @place, notice: 'Place was successfully updated.' }
+        format.html do
+          redirect_to @place, notice: 'Place was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @place }
       else
         format.html { render :edit }
@@ -90,53 +95,45 @@ class PlacesController < ApplicationController
   def destroy
     @place.destroy
     respond_to do |format|
-      format.html { redirect_to places_url, notice: 'Place was successfully destroyed.' }
+      format.html do
+        redirect_to places_url, notice: 'Place was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_place
-      @place = Place.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def place_params
-      params.require(:place).permit(:title, :description, :lat, :lng)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_place
+    @place = Place.find(params[:id])
+  end
 
-    def zip_and_send(files, place_id)
-      zipfile_name = "#{place_id}.zip"
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def place_params
+    params.require(:place).permit(:title, :description, :lat, :lng)
+  end
 
-      temp_file = Tempfile.new(zipfile_name)
-
-      begin
-        # This is the tricky part
-        # Initialize the temp file as a zip file
-        Zip::OutputStream.open(temp_file) { |zos| }
-
-        # Add files to the zip file as usual
-        Zip::File.open(temp_file.path, Zip::File::CREATE) do |zipfile|
-          files.each do |filename, file|
-            # Two arguments:
-            # - The name of the file as it will appear in the archive
-            # - The original file, including the path to find it
-            zipfile.add(filename, file)
-          end
+  def zip_and_send(files, place_id)
+    zipfile_name = "#{place_id}.zip"
+    temp_file = Tempfile.new(zipfile_name)
+    begin
+      Zip::OutputStream.open(temp_file)
+      Zip::File.open(temp_file.path, Zip::File::CREATE) do |zipfile|
+        files.each do |filename, file|
+          # Two arguments:
+          # - The name of the file as it will appear in the archive
+          # - The original file, including the path to find it
+          zipfile.add(filename, file)
         end
-
-        # Read the binary data from the file
-        zip_data = File.read(temp_file.path)
-
-        # Send the data to the browser as an attachment
-        # We do not send the file directly because it will
-        # get deleted before rails actually starts sending it
-        send_data(zip_data, type: 'application/zip', filename: zipfile_name)
-      ensure
-        # Close and delete the temp file
-        temp_file.close
-        temp_file.unlink
       end
+      zip_data = File.read(temp_file.path)
+
+      send_data(zip_data, type: 'application/zip', filename: zipfile_name)
+    ensure
+      # Close and delete the temp file
+      temp_file.close
+      temp_file.unlink
     end
+  end
 end
