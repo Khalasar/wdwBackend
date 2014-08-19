@@ -1,0 +1,30 @@
+- model_class = Photo
+.page-header
+  %h1
+    = t '.title', :default => [:'helpers.titles.all', 'All %{model}s'], :model => model_class.model_name.human.titleize
+%table.table.table-striped.table-hover
+  %thead
+    %tr
+      %th Files
+      %th
+      %th
+      %th
+  %tbody
+    - @photos.each do |photo|
+      %tr
+        %td{:class =>'clickable-row', "data-link" => place_photo_path(@place, photo)}
+          = image_tag photo.file_url(:tiny)
+        %td{:class =>'clickable-row', "data-link" => place_photo_path(@place, photo)}
+          = photo.name
+        %td= link_to 'Edit', edit_place_photo_path(@place, photo), :class => 'btn btn-default btn-xs'
+        %td= link_to 'Destroy', place_photo_path(@place, photo), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger btn-xs'
+%br/
+= link_to 'New photo', new_place_photo_path, :class => 'btn btn-default'
+= link_to 'Back', edit_place_path(@place), :class => 'btn btn-default'
+
+:javascript
+  jQuery(function($) {
+    $("td[data-link]").click(function() {
+      window.location = this.dataset.link
+    });
+  })
