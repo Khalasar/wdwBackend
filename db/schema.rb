@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140818142816) do
+ActiveRecord::Schema.define(version: 20140819091519) do
 
   create_table "photos", force: true do |t|
     t.integer  "place_id"
     t.string   "file"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   create_table "places", force: true do |t|
