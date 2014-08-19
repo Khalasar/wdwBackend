@@ -15,7 +15,10 @@
 /log/*.log
 /tmp
 
-public/.DS_Store
-config/locales/.DS_Store
+*/*/.DS_Store
 .DS_Store
-config/.DS_Store
+*/.DS_Store
+
+*/.nfs*
+*/*/.nfs*
+*/*/*/.nfs*
