@@ -16,8 +16,12 @@ en:
       destroy: "Delete"
       new: "New"
       edit: "Edit"
+      ready: "Ready"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
       new: "New %{model}"
       delete: "Delete %{model}"
+      upload: "Upload %{model}"
+      show: "Show %{model}"
+      all: "All %{model}s"
