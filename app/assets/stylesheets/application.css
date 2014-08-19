@@ -16,3 +16,23 @@
 
 @import "jquery.fileupload-ui";
 @import "bootstrap";
+
+body {
+  padding: 0 10px;
+}
+
+.btn-primary:visited, .btn-danger:visited{
+  color: #fff;
+}
+
+.btn-default:visited{
+  color: #333;
+}
+
+.clickable-row {
+  cursor: pointer;
+}
+
+.buttons {
+  padding: 10px 0;
+}
