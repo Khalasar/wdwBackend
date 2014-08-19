@@ -1,3 +1,10 @@
+<%- model_class = Photo %>
+<div class="page-header">
+  <h1>
+    <%= t '.title', :default => [:'helpers.titles.upload', 'Upload %{model}'], :model => model_class.model_name.human.titleize %>
+  </h1>
+</div>
+
 <%= form_for [@place, @photo], :html => { :multipart => true, :id => "fileupload"  } do |f| %>
   <!-- Redirect browsers with JavaScript disabled to the origin page -->
   <noscript><input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/"></noscript>
@@ -40,6 +47,9 @@
   <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
 <% end %>
 
+<%= link_to t('helpers.links.ready'), places_path, :class => 'btn btn-default' %>
+
+<%= link_to t('helpers.links.back'), place_photos_path, :class => 'btn btn-default' %>
 
 <script>
   var fileUploadErrors = {

@@ -46,7 +46,8 @@ class PhotosController < ApplicationController
   # POST /documents.json
   def create
     @place = place
-    @photo = @place.photos.build(photo_params)
+    @photo = @place.photos.build(photos_params)
+    @photo.name = @photo.file.file.filename if @photo.name = ""
     @photo.save
 
     # respond_to do |format|
@@ -82,7 +83,7 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       if @photo.update_attributes(photo_params)
-        format.html { redirect_to @photo, notice: 'Document was successfully updated.' }
+        format.html { redirect_to [@place, @photo], notice: 'Document was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -99,15 +100,19 @@ class PhotosController < ApplicationController
     @photo.destroy
 
     respond_to do |format|
-      format.html { redirect_to photos_url }
+      format.html { redirect_to place_photos_url }
       format.json { head :no_content }
     end
   end
 
   private
 
+  def photos_params
+    params.require(:photos).permit(:file, :name)
+  end
+
   def photo_params
-    params.require(:photos).permit(:file)
+    params.require(:photo).permit(:file, :name)
   end
 
   def place

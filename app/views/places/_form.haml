@@ -34,6 +34,6 @@
     .controls
       = f.text_field :lng, :class => 'form-control'
     = error_span(@place[:lng])
-
-  = f.submit nil, :class => 'btn btn-primary'
-  = link_to t('.cancel', :default => t("helpers.links.cancel")), places_path, :class => 'btn btn-default'
+  .buttons
+    = f.submit nil, :class => 'btn btn-primary'
+    = link_to t('.cancel', :default => t("helpers.links.cancel")), places_path, :class => 'btn btn-default'

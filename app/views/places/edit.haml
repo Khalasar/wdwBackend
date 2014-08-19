@@ -1,4 +1,8 @@
 - model_class = Place
 .page-header
   %h1= t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize
+
+.buttons
+  = link_to "Upload Image", place_photos_path(@place), :class => 'btn btn-default'
+
 = render :partial => 'form'

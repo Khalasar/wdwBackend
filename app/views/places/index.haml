@@ -1,7 +1,7 @@
 - model_class = Place
 .page-header
   %h1= t '.title', :default => model_class.model_name.human.pluralize.titleize
-%table.table.table-striped
+%table.table.table-striped.table-hover
   %thead
     %tr
       %th= model_class.human_attribute_name(:id)
@@ -15,16 +15,29 @@
   %tbody
     - @places.each do |place|
       %tr
-        %td= link_to place.id, place_path(place)
-        %td= place.title
-        %td= place.subtitle
-        %td= place.description
-        %td= place.lat
-        %td= place.lng
-        %td= l place.created_at
+        %td{:class =>'clickable-row', "data-link" => place_path(place)}
+          = place.id
+        %td{:class =>'clickable-row', "data-link" => place_path(place)}
+          = place.title
+        %td{:class =>'clickable-row', "data-link" => place_path(place)}
+          = place.subtitle
+        %td{:class =>'clickable-row', "data-link" => place_path(place)}
+          = place.description
+        %td{:class =>'clickable-row', "data-link" => place_path(place)}
+          = place.lat
+        %td{:class =>'clickable-row', "data-link" => place_path(place)}
+          = place.lng
+        %td{:class =>'clickable-row', "data-link" => place_path(place)}
+          = l place.created_at
         %td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_place_path(place), :class => 'btn btn-default btn-xs'
-          -#
           = link_to t('.destroy', :default => t("helpers.links.destroy")), place_path(place), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
 = link_to t('.new', :default => t("helpers.links.new")), new_place_path, :class => 'btn btn-primary'
 = link_to t('.new', :default => t("helpers.links.back")), root_path, :class => 'btn btn-primary'
+
+:javascript
+  jQuery(function($) {
+    $("td[data-link]").click(function() {
+      window.location = this.dataset.link
+    });
+  })
