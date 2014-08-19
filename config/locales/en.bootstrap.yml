@@ -25,3 +25,4 @@ en:
       upload: "Upload %{model}"
       show: "Show %{model}"
       all: "All %{model}s"
+      image_count: "Image count"
