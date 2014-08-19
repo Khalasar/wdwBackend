@@ -1,5 +1,5 @@
 class Photo < ActiveRecord::Base
-  #attr_accessible :image
+  #attr_accessible :file
   #photo belongs to album
   belongs_to  :place
   #validations
@@ -12,7 +12,7 @@ class Photo < ActiveRecord::Base
       "name" => read_attribute(:file),
       "size" => file.size,
       "url" => file.url,
-      "delete_url" => "/photos/#{id}",
+      "delete_url" => "/places/#{place_id}/photos/#{id}",
       "delete_type" => "DELETE"
     }
   end

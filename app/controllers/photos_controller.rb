@@ -2,7 +2,8 @@ class PhotosController < ApplicationController
  # GET /documents
   # GET /documents.json
   def index
-    @photos = place.photos
+    @place = place
+    @photos = @place.photos
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +15,8 @@ class PhotosController < ApplicationController
   # GET /documents/1
   # GET /documents/1.json
   def show
-    @photo = place.photos.find(params[:id])
+    @place = place
+    @photo = @place.photos.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,7 +27,8 @@ class PhotosController < ApplicationController
   # GET /documents/new
   # GET /documents/new.json
   def new
-    @photo = place.photos.build
+    @place = place
+    @photo = @place.photos.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,13 +38,15 @@ class PhotosController < ApplicationController
 
   # GET /documents/1/edit
   def edit
-    @photo = place.photos.find(params[:id])
+    @place = place
+    @photo = @place.photos.find(params[:id])
   end
 
   # POST /documents
   # POST /documents.json
   def create
-    @photo = place.photos.build(photo_params)
+    @place = place
+    @photo = @place.photos.build(photo_params)
     @photo.save
 
     # respond_to do |format|
@@ -61,7 +66,7 @@ class PhotosController < ApplicationController
           :content_type => 'text/html',
           :layout => false
         }
-        format.json { render json: {files: [@photo.to_jq_upload]}, status: :created, location: @photo }
+        format.json { render json: {files: [@photo.to_jq_upload]}, status: :created, location: [@place, @photo] }
       else
         format.html { render action: "new" }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
@@ -72,7 +77,8 @@ class PhotosController < ApplicationController
   # PUT /documents/1
   # PUT /documents/1.json
   def update
-    @photo = place.photos.find(params[:id])
+    @place = place
+    @photo = @place.photos.find(params[:id])
 
     respond_to do |format|
       if @photo.update_attributes(photo_params)
@@ -88,7 +94,8 @@ class PhotosController < ApplicationController
   # DELETE /documents/1
   # DELETE /documents/1.json
   def destroy
-    @photo = place.photos.find(params[:id])
+    @place = place
+    @photo = @place.photos.find(params[:id])
     @photo.destroy
 
     respond_to do |format|
@@ -100,7 +107,7 @@ class PhotosController < ApplicationController
   private
 
   def photo_params
-    params.require(:photo).permit(:file, :id)
+    params.require(:photos).permit(:file)
   end
 
   def place
