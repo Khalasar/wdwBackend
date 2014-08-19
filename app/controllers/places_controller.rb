@@ -1,16 +1,15 @@
 require 'zipper.rb'
 
 class PlacesController < ApplicationController
-  before_action :set_place, only: [:show, :edit, :update, :destroy]
+  before_action :set_place, only: [:show, :edit, :update, :destroy, :get_images]
 
   def get_images
-    place = Place.find(params[:id])
-    photos = place.photos
+    photos = @place.photos
     files = {}
     photos.each do |photo|
       files[photo.name] = photo.file.path if File.exist?(photo.file.path)
     end
-    zip_and_send(files, place.id)
+    zip_and_send(files, @place.id)
   end
 
   # GET /places
