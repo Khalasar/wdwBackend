@@ -15,7 +15,7 @@ class Place < ActiveRecord::Base
         "lat" => lat,
         "lng" => lng,
         "subtitle" => subtitle,
-        "images_count" => 1
+        "images_count" => photos.count
       }
     }
   end

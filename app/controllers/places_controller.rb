@@ -1,11 +1,18 @@
+require 'zipper.rb'
+
 class PlacesController < ApplicationController
   before_action :set_place, only: [:show, :edit, :update, :destroy]
 
-  def files
-    file = File.read(Rails.root + "app/assets/images/5.jpg")
-    send_data(file, :type => 'application/zip', :filename => "filename")
+  def get_images
+    place = Place.find(params[:id])
+    photos = place.photos
+    files = {}
+    photos.each do |photo|
+      files[photo.name] = photo.file.path if File.exist?(photo.file.path)
+    end
+    zip_and_send(files, place.id)
   end
-  
+
   # GET /places
   # GET /places.json
   def index
@@ -97,5 +104,39 @@ class PlacesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def place_params
       params.require(:place).permit(:title, :description, :lat, :lng)
+    end
+
+    def zip_and_send(files, place_id)
+      zipfile_name = "#{place_id}.zip"
+
+      temp_file = Tempfile.new(zipfile_name)
+
+      begin
+        # This is the tricky part
+        # Initialize the temp file as a zip file
+        Zip::OutputStream.open(temp_file) { |zos| }
+
+        # Add files to the zip file as usual
+        Zip::File.open(temp_file.path, Zip::File::CREATE) do |zipfile|
+          files.each do |filename, file|
+            # Two arguments:
+            # - The name of the file as it will appear in the archive
+            # - The original file, including the path to find it
+            zipfile.add(filename, file)
+          end
+        end
+
+        # Read the binary data from the file
+        zip_data = File.read(temp_file.path)
+
+        # Send the data to the browser as an attachment
+        # We do not send the file directly because it will
+        # get deleted before rails actually starts sending it
+        send_data(zip_data, type: 'application/zip', filename: zipfile_name)
+      ensure
+        # Close and delete the temp file
+        temp_file.close
+        temp_file.unlink
+      end
     end
 end
