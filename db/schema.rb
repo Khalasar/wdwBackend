@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140819091519) do
+ActiveRecord::Schema.define(version: 20140819143807) do
 
   create_table "photos", force: true do |t|
     t.integer  "place_id"
@@ -22,13 +22,15 @@ ActiveRecord::Schema.define(version: 20140819091519) do
   end
 
   create_table "places", force: true do |t|
-    t.string   "title",       null: false
+    t.string   "title",        null: false
     t.string   "subtitle"
     t.text     "description"
-    t.float    "lat",         null: false
-    t.float    "lng",         null: false
+    t.float    "lat",          null: false
+    t.float    "lng",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "german_text"
+    t.string   "english_text"
   end
 
 end
