@@ -7,6 +7,9 @@ class Place < ActiveRecord::Base
   # enable nested attributes for photos through album class
   accepts_nested_attributes_for :photos, allow_destroy: true
 
+  mount_uploader :german_text, FileUploader
+  mount_uploader :english_text, FileUploader
+
   def as_json(options={})
     {
       "#{id}" => {

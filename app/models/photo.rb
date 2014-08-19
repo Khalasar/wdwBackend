@@ -1,5 +1,4 @@
 class Photo < ActiveRecord::Base
-  #attr_accessible :file
   #photo belongs to album
   belongs_to  :place
   #validations

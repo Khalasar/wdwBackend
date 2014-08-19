@@ -1,5 +1,3 @@
-require 'zipper.rb'
-
 class PlacesController < ApplicationController
   before_action :set_place, only: [:show, :edit, :update, :destroy, :get_images]
 
@@ -110,7 +108,7 @@ class PlacesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def place_params
-    params.require(:place).permit(:title, :description, :lat, :lng)
+    params.require(:place).permit(:title, :description, :lat, :lng, :english_text, :german_text)
   end
 
   def zip_and_send(files, place_id)

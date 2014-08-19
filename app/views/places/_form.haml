@@ -34,6 +34,16 @@
     .controls
       = f.text_field :lng, :class => 'form-control'
     = error_span(@place[:lng])
+  .control-group
+    = f.label :english_text, :class => 'control-label'
+    .controls
+      = f.file_field :english_text, :class => 'form-control'
+    = error_span(@place[:english_text])
+  .control-group
+    = f.label :german_text, :class => 'control-label'
+    .controls
+      = f.file_field :german_text, :class => 'form-control'
+    = error_span(@place[:german_text])
   .buttons
     = f.submit nil, :class => 'btn btn-primary'
     = link_to t('.cancel', :default => t("helpers.links.cancel")), places_path, :class => 'btn btn-default'
