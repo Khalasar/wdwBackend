@@ -12,14 +12,12 @@ class Place < ActiveRecord::Base
 
   def as_json(options={})
     {
-      "#{id}" => {
-        "id" => id,
-        "title" => title,
-        "lat" => lat,
-        "lng" => lng,
-        "subtitle" => subtitle,
-        "images_count" => photos.count
-      }
+      "id" => id,
+      "title" => title,
+      "lat" => lat,
+      "lng" => lng,
+      "subtitle" => subtitle,
+      "images_count" => photos.count
     }
   end
 end
