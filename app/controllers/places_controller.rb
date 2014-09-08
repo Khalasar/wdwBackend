@@ -33,6 +33,7 @@ class PlacesController < ApplicationController
   # GET /places/new
   def new
     @place = Place.new
+    2.times { @place.translations.build }
   end
 
   # GET /places/1/edit
@@ -43,6 +44,8 @@ class PlacesController < ApplicationController
   # POST /places.json
   def create
     @place = Place.new(place_params)
+    #@translation = @place.translations.build(translation_params)
+    #raise translation_params.inspect
 
     if @place.save
       if params[:images]
@@ -108,7 +111,14 @@ class PlacesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def place_params
-    params.require(:place).permit(:title, :description, :lat, :lng, :english_text, :german_text)
+    params.require(:place).permit(
+      :title,
+      :description,
+      :lat,
+      :lng,
+      :english_text,
+      :german_text,
+      translations_attributes: [:id, :title, :subtitle, :language])
   end
 
   def zip_and_send(files, place_id)

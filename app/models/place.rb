@@ -4,8 +4,10 @@ class Place < ActiveRecord::Base
   validates :title, presence: true
 
   has_many :photos, :dependent => :destroy
+  has_many :translations, :dependent => :destroy
   # enable nested attributes for photos through album class
   accepts_nested_attributes_for :photos, allow_destroy: true
+  accepts_nested_attributes_for :translations
 
   mount_uploader :german_text, FileUploader
   mount_uploader :english_text, FileUploader
