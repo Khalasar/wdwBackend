@@ -8,8 +8,12 @@
         - @photo.errors.full_messages.each do |msg|
           %li= msg
   .field
-    = f.label :name
+    = f.label :name, :class => 'control-label'
     %br/
-    = f.text_field :name
+    = f.text_field :name, :class => 'form-control'
+  .field
+    = f.label :caption, :class => 'control-label'
+    %br/
+    = f.text_field :caption, :class => 'form-control'
   .actions
     = f.submit

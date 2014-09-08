@@ -37,7 +37,7 @@
       .photo
         = link_to image_tag(photo.file_url(:thumb)), photo.file.url, :target => "_blank"
         .description
-          = photo.name
+          = photo.caption
     %br
 
 = link_to t('.back', :default => t("helpers.links.back")), places_path, :class => 'btn btn-default'

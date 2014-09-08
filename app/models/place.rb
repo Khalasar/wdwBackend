@@ -11,13 +11,19 @@ class Place < ActiveRecord::Base
   mount_uploader :english_text, FileUploader
 
   def as_json(options={})
+
+  photo_array = photos.map do |p|
+    { :id => p.id, :caption => p.caption }
+  end
+
     {
       "id" => id,
       "title" => title,
       "lat" => lat,
       "lng" => lng,
       "subtitle" => subtitle,
-      "images_count" => photos.count
+      "images_count" => photos.count,
+      "photos" => photo_array
     }
   end
 end

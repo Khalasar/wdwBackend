@@ -15,4 +15,12 @@ class Photo < ActiveRecord::Base
       "delete_type" => "DELETE"
     }
   end
+
+  def as_json(options={})
+    {
+      "id" => id,
+      "name" => name,
+      "caption" => caption
+    }
+  end
 end
