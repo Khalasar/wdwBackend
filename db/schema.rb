@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140909074634) do
+ActiveRecord::Schema.define(version: 20140909115545) do
+
+  create_table "photo_translations", force: true do |t|
+    t.integer  "photo_id"
+    t.string   "language"
+    t.string   "caption",    default: ""
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "photos", force: true do |t|
     t.integer  "place_id"
@@ -19,7 +27,6 @@ ActiveRecord::Schema.define(version: 20140909074634) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
-    t.string   "caption",    default: ""
   end
 
   create_table "places", force: true do |t|

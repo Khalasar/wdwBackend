@@ -13,16 +13,20 @@ class PlacesController < ApplicationController
 
   def translations
     translations = {}
+    photo_translations = {}
     supported_languages.each do |lang|
       translations[lang] = Translation.where(language: "#{lang}")
+      photo_translations[lang] = PhotoTranslation.where(language: "#{lang}")
     end
 
     translations_json = {}
+    photo_translations_json = {}
     supported_languages.each do |lang|
       translations_json[lang] = convert_json(translations[lang])
+      photo_translations_json[lang] = convert_json(photo_translations[lang])
     end
 
-    render json: translations_json
+    render json: translations_json.deep_merge(photo_translations_json)
   end
 
   # GET /places
@@ -161,9 +165,13 @@ class PlacesController < ApplicationController
 
   def convert_json(translations)
     json = {}
-    translations.as_json.each do |trans|
-      json = json.merge(trans)
+
+    if translations
+      translations.as_json.each do |trans|
+        json = json.merge(trans)
+      end
     end
+
     json
   end
 

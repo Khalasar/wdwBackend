@@ -43,7 +43,7 @@ class Place < ActiveRecord::Base
 
   def photo_array
     photos.map do |p|
-      { id: p.id, caption: p.caption }
+      p.as_json
     end
   end
 

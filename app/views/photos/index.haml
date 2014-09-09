@@ -22,6 +22,7 @@
         %td= link_to 'Edit', edit_place_photo_path(@place, photo), :class => 'btn btn-default btn-xs'
         %td= link_to 'Destroy', place_photo_path(@place, photo), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger btn-xs'
 %br/
+= link_to 'Overview', places_path, :class => 'btn btn-default'
 = link_to 'New photo', new_place_photo_path, :class => 'btn btn-default'
 = link_to 'Back', edit_place_path(@place), :class => 'btn btn-default'
 
