@@ -46,12 +46,12 @@
       = f.text_field :lng, :class => 'form-control'
     = error_span(@place[:lng])
   .control-group
-    = f.label :english_text, :class => 'control-label'
+    = f.label :english_text, "English Text (only txt files allowed)", :class => 'control-label'
     .controls
       = f.file_field :english_text, :class => 'form-control'
     = error_span(@place[:english_text])
   .control-group
-    = f.label :german_text, :class => 'control-label'
+    = f.label :german_text, "German Text (only txt files allowed)", :class => 'control-label'
     .controls
       = f.file_field :german_text, :class => 'form-control'
     = error_span(@place[:german_text])
