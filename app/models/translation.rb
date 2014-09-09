@@ -5,4 +5,17 @@ class Translation < ActiveRecord::Base
   def title_empty?
     title.empty?
   end
+
+  def as_json(_options = {})
+    {
+      "#{json_title}_title" => title,
+      "#{json_title}_subtitle" => subtitle
+    }
+  end
+
+  private
+
+  def json_title
+    place.identifier.downcase.tr(' ', '_')
+  end
 end

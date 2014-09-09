@@ -5,7 +5,7 @@
   %thead
     %tr
       %th= model_class.human_attribute_name(:id)
-      %th= model_class.human_attribute_name(:title)
+      %th= model_class.human_attribute_name(:identifier)
       %th= model_class.human_attribute_name(:subtitle)
       %th= model_class.human_attribute_name(:description)
       %th= model_class.human_attribute_name(:lat)
@@ -19,7 +19,7 @@
         %td{:class =>'clickable-row', "data-link" => place_path(place)}
           = place.id
         %td{:class =>'clickable-row', "data-link" => place_path(place)}
-          = place.title
+          = place.identifier
         %td{:class =>'clickable-row', "data-link" => place_path(place)}
           = place.subtitle
         %td{:class =>'clickable-row', "data-link" => place_path(place)}

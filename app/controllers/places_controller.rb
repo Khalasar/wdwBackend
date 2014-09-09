@@ -10,6 +10,19 @@ class PlacesController < ApplicationController
     zip_and_send(files, @place.id)
   end
 
+  def translations
+    en_translations = Translation.where(language: "en")
+    de_translations = Translation.where(language: "de")
+
+    test =
+      {
+        en: convert_json(en_translations),
+        de: convert_json(de_translations)
+      }
+
+    render json: test
+  end
+
   # GET /places
   # GET /places.json
   def index
@@ -44,8 +57,6 @@ class PlacesController < ApplicationController
   # POST /places.json
   def create
     @place = Place.new(place_params)
-    #@translation = @place.translations.build(translation_params)
-    #raise translation_params.inspect
 
     if @place.save
       if params[:images]
@@ -112,7 +123,7 @@ class PlacesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def place_params
     params.require(:place).permit(
-      :title,
+      :identifier,
       :description,
       :lat,
       :lng,
@@ -142,5 +153,13 @@ class PlacesController < ApplicationController
       temp_file.close
       temp_file.unlink
     end
+  end
+
+  def convert_json(translations)
+    json = {}
+    translations.as_json.each do |trans|
+      json = json.merge(trans)
+    end
+    json
   end
 end

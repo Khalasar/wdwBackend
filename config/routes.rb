@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   end
 
   get 'places/:id/get_images' => 'places#get_images'
+  get 'translations' => 'places#translations'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
