@@ -6,11 +6,12 @@
     %tr
       %th= model_class.human_attribute_name(:id)
       %th= model_class.human_attribute_name(:identifier)
+      %th= "Title"
       %th= model_class.human_attribute_name(:subtitle)
-      %th= model_class.human_attribute_name(:description)
       %th= model_class.human_attribute_name(:lat)
       %th= model_class.human_attribute_name(:lng)
       %th= model_class.human_attribute_name(:created_at)
+      %th= model_class.human_attribute_name(:updated_at)
       %th= t 'helpers.titles.image_count'
       %th= t '.actions', :default => t("helpers.actions")
   %tbody
@@ -21,15 +22,17 @@
         %td{:class =>'clickable-row', "data-link" => place_path(place)}
           = place.identifier
         %td{:class =>'clickable-row', "data-link" => place_path(place)}
-          = place.subtitle
+          = place.title
         %td{:class =>'clickable-row', "data-link" => place_path(place)}
-          = place.description
+          = place.subtitle
         %td{:class =>'clickable-row', "data-link" => place_path(place)}
           = place.lat
         %td{:class =>'clickable-row', "data-link" => place_path(place)}
           = place.lng
         %td{:class =>'clickable-row', "data-link" => place_path(place)}
           = l place.created_at
+        %td{:class =>'clickable-row', "data-link" => place_path(place)}
+          = l place.updated_at
         %td{:class =>'clickable-row', "data-link" => place_path(place)}
           = place.photos.count
         %td

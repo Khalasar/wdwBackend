@@ -1,7 +1,12 @@
 class Place < ActiveRecord::Base
   validates :lat, presence: true
   validates :lng, presence: true
-  validates :identifier, presence: true, uniqueness: true
+  validates :identifier,
+            presence: true,
+            uniqueness: true,
+            format: { with: /\A[a-zA-Z]+\z/,
+                      message: 'only allows letters'
+                    }
 
   has_many :photos, dependent: :destroy
   has_many :translations, dependent: :destroy
@@ -22,6 +27,14 @@ class Place < ActiveRecord::Base
       'images_count' => photos.count,
       'photos' => photo_array
     }
+  end
+
+  def title
+    translations.find_by_language('en').title
+  end
+
+  def subtitle
+    translations.find_by_language('en').subtitle
   end
 
   private
