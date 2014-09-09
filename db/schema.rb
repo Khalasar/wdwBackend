@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20140909074634) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
-    t.string   "caption"
+    t.string   "caption",    default: ""
   end
 
   create_table "places", force: true do |t|

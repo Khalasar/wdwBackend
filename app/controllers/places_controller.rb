@@ -1,5 +1,6 @@
 class PlacesController < ApplicationController
   before_action :set_place, only: [:show, :edit, :update, :destroy, :get_images]
+  before_action :supported_languages
 
   def get_images
     photos = @place.photos
@@ -11,16 +12,17 @@ class PlacesController < ApplicationController
   end
 
   def translations
-    en_translations = Translation.where(language: "en")
-    de_translations = Translation.where(language: "de")
+    translations = {}
+    supported_languages.each do |lang|
+      translations[lang] = Translation.where(language: "#{lang}")
+    end
 
-    test =
-      {
-        en: convert_json(en_translations),
-        de: convert_json(de_translations)
-      }
+    translations_json = {}
+    supported_languages.each do |lang|
+      translations_json[lang] = convert_json(translations[lang])
+    end
 
-    render json: test
+    render json: translations_json
   end
 
   # GET /places
@@ -46,11 +48,13 @@ class PlacesController < ApplicationController
   # GET /places/new
   def new
     @place = Place.new
-    2.times { @place.translations.build }
+    supported_languages.count.times { @place.translations.build }
   end
 
   # GET /places/1/edit
   def edit
+    new_languages = supported_languages.count - @place.translations.count
+    new_languages.times { @place.translations.build }
   end
 
   # POST /places
@@ -161,5 +165,9 @@ class PlacesController < ApplicationController
       json = json.merge(trans)
     end
     json
+  end
+
+  def supported_languages
+    @supported_languages = [:de, :en, :pl]
   end
 end

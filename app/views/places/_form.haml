@@ -19,7 +19,7 @@
       = f.fields_for :translations do |translation_fields|
         %tr
           %td
-            = translation_fields.select :language, [:de, :en], { include_blank: true }
+            = translation_fields.select :language, @supported_languages, { include_blank: true }
           %td
             = translation_fields.text_field :title, :class => 'form-control'
           %td

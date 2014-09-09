@@ -30,10 +30,12 @@ class Place < ActiveRecord::Base
   end
 
   def title
+    translations.find_by_language('en') &&
     translations.find_by_language('en').title
   end
 
   def subtitle
+    translations.find_by_language('en') &&
     translations.find_by_language('en').subtitle
   end
 
