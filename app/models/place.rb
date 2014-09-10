@@ -12,7 +12,7 @@ class Place < ActiveRecord::Base
 
   def as_json(options={})
     {
-      "id" => id,
+      "id" => "#{id}",
       "title" => title,
       "lat" => lat,
       "lng" => lng,

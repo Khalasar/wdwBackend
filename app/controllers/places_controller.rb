@@ -3,11 +3,14 @@ class PlacesController < ApplicationController
 
   def get_images
     photos = @place.photos
-    files = {}
+    photo_files = {}
+    text_files = {}
+    text_files["en_text"] = @place.english_text.file.path if @place.english_text.file
+    text_files["de_text"] = @place.german_text.file.path if @place.german_text.file
     photos.each do |photo|
-      files[photo.name] = photo.file.path if File.exist?(photo.file.path)
+      photo_files[photo.name] = photo.file.path if File.exist?(photo.file.path)
     end
-    zip_and_send(files, @place.id)
+    zip_and_send(photo_files, text_files, @place.id)
   end
 
   # GET /places
@@ -111,17 +114,23 @@ class PlacesController < ApplicationController
     params.require(:place).permit(:title, :description, :lat, :lng, :english_text, :german_text)
   end
 
-  def zip_and_send(files, place_id)
+  def zip_and_send(photo_files, text_files, place_id)
     zipfile_name = "#{place_id}.zip"
     temp_file = Tempfile.new(zipfile_name)
     begin
       Zip::OutputStream.open(temp_file)
       Zip::File.open(temp_file.path, Zip::File::CREATE) do |zipfile|
-        files.each do |filename, file|
+        photo_files.each do |filename, file|
           # Two arguments:
           # - The name of the file as it will appear in the archive
           # - The original file, including the path to find it
-          zipfile.add(filename, file)
+          zipfile.add("images/"+filename, file)
+        end
+        text_files.each do |filename, file|
+          # Two arguments:
+          # - The name of the file as it will appear in the archive
+          # - The original file, including the path to find it
+          zipfile.add('text/'+filename, file)
         end
       end
       zip_data = File.read(temp_file.path)
