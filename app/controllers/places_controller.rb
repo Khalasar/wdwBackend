@@ -1,3 +1,5 @@
+require 'zip'
+
 class PlacesController < ApplicationController
   before_action :set_place, only: [:show, :edit, :update, :destroy, :get_images]
 
@@ -129,7 +131,7 @@ class PlacesController < ApplicationController
         text_files.each do |filename, file|
           # Two arguments:
           # - The name of the file as it will appear in the archive
-          # - The original file, including the path to find it
+          # - The original file, including the path to find its
           zipfile.add('text/'+filename, file)
         end
       end
