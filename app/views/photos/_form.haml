@@ -7,9 +7,19 @@
       %ul
         - @photo.errors.full_messages.each do |msg|
           %li= msg
-  .field
-    = f.label :name
-    %br/
-    = f.text_field :name
+
+  %table.table.table-striped.table-hover
+    %thead
+      %tr
+        %th= "Language"
+        %th= "Caption"
+    %tbody
+      = f.fields_for :photo_translations do |translation_fields|
+        %tr
+          %td
+            = translation_fields.select :language, @supported_languages, { include_blank: true }
+          %td
+            = translation_fields.text_field :caption, :class => 'form-control'
+
   .actions
-    = f.submit
+    = f.submit nil, :class => 'btn btn-primary'

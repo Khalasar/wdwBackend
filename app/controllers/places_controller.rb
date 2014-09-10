@@ -2,6 +2,7 @@ require 'zip'
 
 class PlacesController < ApplicationController
   before_action :set_place, only: [:show, :edit, :update, :destroy, :get_images]
+  before_action :supported_languages
 
   def get_images
     photos = @place.photos
@@ -13,6 +14,24 @@ class PlacesController < ApplicationController
       photo_files[photo.name] = photo.file.path if File.exist?(photo.file.path)
     end
     zip_and_send(photo_files, text_files, @place.id)
+  end
+
+  def translations
+    translations = {}
+    photo_translations = {}
+    supported_languages.each do |lang|
+      translations[lang] = Translation.where(language: "#{lang}")
+      photo_translations[lang] = PhotoTranslation.where(language: "#{lang}")
+    end
+
+    translations_json = {}
+    photo_translations_json = {}
+    supported_languages.each do |lang|
+      translations_json[lang] = convert_json(translations[lang])
+      photo_translations_json[lang] = convert_json(photo_translations[lang])
+    end
+
+    render json: translations_json.deep_merge(photo_translations_json)
   end
 
   # GET /places
@@ -38,10 +57,13 @@ class PlacesController < ApplicationController
   # GET /places/new
   def new
     @place = Place.new
+    supported_languages.count.times { @place.translations.build }
   end
 
   # GET /places/1/edit
   def edit
+    new_languages = supported_languages.count - @place.translations.count
+    new_languages.times { @place.translations.build }
   end
 
   # POST /places
@@ -113,7 +135,14 @@ class PlacesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def place_params
-    params.require(:place).permit(:title, :description, :lat, :lng, :english_text, :german_text)
+    params.require(:place).permit(
+      :identifier,
+      :description,
+      :lat,
+      :lng,
+      :english_text,
+      :german_text,
+      translations_attributes: [:id, :title, :subtitle, :language])
   end
 
   def zip_and_send(photo_files, text_files, place_id)
@@ -143,5 +172,21 @@ class PlacesController < ApplicationController
       temp_file.close
       temp_file.unlink
     end
+  end
+
+  def convert_json(translations)
+    json = {}
+
+    if translations
+      translations.as_json.each do |trans|
+        json = json.merge(trans)
+      end
+    end
+
+    json
+  end
+
+  def supported_languages
+    @supported_languages = [:de, :en, :pl]
   end
 end

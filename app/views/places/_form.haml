@@ -9,21 +9,27 @@
         %ul
           - @place.errors.full_messages.each do |msg|
             %li= msg
+  %table.table.table-striped.table-hover
+    %thead
+      %tr
+        %th= "Language"
+        %th= "Title"
+        %th= "Subtitle"
+    %tbody
+      = f.fields_for :translations do |translation_fields|
+        %tr
+          %td
+            = translation_fields.select :language, @supported_languages, { include_blank: true }
+          %td
+            = translation_fields.text_field :title, :class => 'form-control'
+          %td
+            = translation_fields.text_field :subtitle, :class => 'form-control'
+
   .control-group
-    = f.label :title, :class => 'control-label'
+    = f.label :identifier, :class => 'control-label'
     .controls
-      = f.text_field :title, :class => 'form-control'
-    = error_span(@place[:title])
-  .control-group
-    = f.label :subtitle, :class => 'control-label'
-    .controls
-      = f.text_field :subtitle, :class => 'form-control'
-    = error_span(@place[:subtitle])
-  .control-group
-    = f.label :description, :class => 'control-label'
-    .controls
-      = f.text_field :description, :class => 'form-control'
-    = error_span(@place[:description])
+      = f.text_field :identifier, :class => 'form-control'
+    = error_span(@place[:identifier])
   .control-group
     = f.label :lat, :class => 'control-label'
     .controls
@@ -35,12 +41,12 @@
       = f.text_field :lng, :class => 'form-control'
     = error_span(@place[:lng])
   .control-group
-    = f.label :english_text, :class => 'control-label'
+    = f.label :english_text, "English Text (only txt files allowed)", :class => 'control-label'
     .controls
       = f.file_field :english_text, :class => 'form-control'
     = error_span(@place[:english_text])
   .control-group
-    = f.label :german_text, :class => 'control-label'
+    = f.label :german_text, "German Text (only txt files allowed)", :class => 'control-label'
     .controls
       = f.file_field :german_text, :class => 'form-control'
     = error_span(@place[:german_text])

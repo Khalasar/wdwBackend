@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
- # GET /documents
-  # GET /documents.json
+  before_action :supported_languages
+
   def index
     @place = place
     @photos = @place.photos
@@ -8,12 +8,10 @@ class PhotosController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       # format.json { render json: @photos }
-      format.json { render json: @photos.map{|photo| photo.to_jq_upload } }
+      format.json { render json: @photos.map { |photo| photo.to_jq_upload } }
     end
   end
 
-  # GET /documents/1
-  # GET /documents/1.json
   def show
     @place = place
     @photo = @place.photos.find(params[:id])
@@ -24,8 +22,6 @@ class PhotosController < ApplicationController
     end
   end
 
-  # GET /documents/new
-  # GET /documents/new.json
   def new
     @place = place
     @photo = @place.photos.build
@@ -36,29 +32,19 @@ class PhotosController < ApplicationController
     end
   end
 
-  # GET /documents/1/edit
   def edit
     @place = place
     @photo = @place.photos.find(params[:id])
+
+    new_languages = @supported_languages.count - @photo.photo_translations.count
+    new_languages.times { @photo.photo_translations.build }
   end
 
-  # POST /documents
-  # POST /documents.json
   def create
     @place = place
     @photo = @place.photos.build(photos_params)
     @photo.name = @photo.file.file.filename if @photo.name = ""
     @photo.save
-
-    # respond_to do |format|
-    #   if @document.save
-    #     format.html { redirect_to @document, notice: 'Document was successfully created.' }
-    #     format.json { render json: @document, status: :created, location: @document }
-    #   else
-    #     format.html { render action: "new" }
-    #     format.json { render json: @document.errors, status: :unprocessable_entity }
-    #   end
-    # end
 
     respond_to do |format|
       if @photo.save
@@ -75,8 +61,6 @@ class PhotosController < ApplicationController
     end
   end
 
-  # PUT /documents/1
-  # PUT /documents/1.json
   def update
     @place = place
     @photo = @place.photos.find(params[:id])
@@ -92,8 +76,6 @@ class PhotosController < ApplicationController
     end
   end
 
-  # DELETE /documents/1
-  # DELETE /documents/1.json
   def destroy
     @place = place
     @photo = @place.photos.find(params[:id])
@@ -108,14 +90,26 @@ class PhotosController < ApplicationController
   private
 
   def photos_params
-    params.require(:photos).permit(:file, :name)
+    params.require(:photos).permit(
+      :file,
+      :name,
+      photo_translations_attributes: [:id, :caption, :language]
+    )
   end
 
   def photo_params
-    params.require(:photo).permit(:file, :name)
+    params.require(:photo).permit(
+      :file,
+      :name,
+      photo_translations_attributes: [:id, :caption, :language]
+    )
   end
 
   def place
     Place.find(params[:place_id])
+  end
+
+  def supported_languages
+    @supported_languages = [:de, :en, :pl]
   end
 end

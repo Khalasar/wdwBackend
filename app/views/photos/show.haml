@@ -4,6 +4,20 @@
     = t '.title', :default => [:'helpers.titles.show', 'Show %{model}'], :model => model_class.model_name.human.titleize
 %p#notice= notice
 
+.table-responsive
+  %table.table.table-striped.table-hover.table-condensed
+    %thead
+      %tr
+        %th= "Language"
+        %th= "Caption"
+    %tbody
+      - @photo.photo_translations.each do |translation|
+        %tr
+          %td
+            = translation.language
+          %td
+            = translation.caption
+
 %dl.dl-horizontal.show-page
   %dt
     %strong
