@@ -1,0 +1,5 @@
+.page-header
+  %h1= t '.title', :default => t("pages.header.headline")
+
+= link_to t('.new', :default => t("helpers.links.new")), new_route_path, :class => 'btn btn-primary'
+= link_to t('.new', :default => t("helpers.links.back")), root_path, :class => 'btn btn-primary'

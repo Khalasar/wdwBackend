@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     resources :photos
   end
 
+  resources :routes
+
   get 'places/:id/get_images' => 'places#get_images'
   get 'translations' => 'places#translations'
 
