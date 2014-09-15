@@ -2,3 +2,8 @@
   %h1= t '.title', :default => t("pages.header.headline")
 .div#map-container
   .div#map-canvas
+
+:javascript
+  $(function () {
+    loadScript();
+  });

@@ -1,7 +1,3 @@
-$(window).load(function() {
-  loadScript();
-});
-
 var map;
 var waypoints = [];
 var draggedWaypoint;
@@ -47,7 +43,6 @@ function addLatLng(event) {
   // Add a new marker at the new plotted point on the polyline.
   var marker = new google.maps.Marker({
     position: event.latLng,
-    //title: '#' + path.getLength(),
     draggable:true,
     animation: google.maps.Animation.DROP,
     map: map,
@@ -68,6 +63,30 @@ function setPolylinePath(event) {
     waypoints.splice(draggedWaypoint, 1);
   }
   poly.setPath(waypoints);
+
+  sendWaypointsJSON();
+}
+
+function sendWaypointsJSON() {
+  var waypointsJson = [];
+  for (i = 0; i < waypoints.length; i++) {
+    waypointsJson.push({
+      lat: waypoints[i].lat(),
+      lng: waypoints[i].lng()
+    });
+  }
+  $.ajax({
+    url: "/routes/save",
+    type: "post",
+    data: "waypoints=" + JSON.stringify(waypointsJson),
+    success: function(){
+      //alert('Saved Successfully');
+    },
+    error:function(){
+     console.log("error sending waypoint json");
+    }
+  });
+  console.log(waypointsJson);
 }
 
 function findDraggedWaypoint(event) {
