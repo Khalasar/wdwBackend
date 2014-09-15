@@ -1,0 +1,26 @@
+= form_for @route, :html => { :class => "form-horizontal route", :multipart => true } do |f|
+  - if @route.errors.any?
+    #error_expl.panel.panel-danger
+      .panel-heading
+        %h3.panel-title
+          = pluralize(@route.errors.count, "error")
+          prohibited this route from being saved:
+      .panel-body
+        %ul
+          - @route.errors.full_messages.each do |msg|
+            %li= msg
+
+  .control-group
+    = f.label :title, :class => 'control-label'
+    .controls
+      = f.text_field :title, :class => 'form-control'
+    = error_span(@route[:title])
+  .control-group
+    = f.label :subtitle, :class => 'control-label'
+    .controls
+      = f.text_field :subtitle, :class => 'form-control'
+    = error_span(@route[:subtitle])
+
+  .buttons
+    = f.submit nil, :class => 'btn btn-primary create-route'
+    = link_to t('.cancel', :default => t("helpers.links.cancel")), routes_path, :class => 'btn btn-default'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140909115545) do
+ActiveRecord::Schema.define(version: 20140915131742) do
 
   create_table "photo_translations", force: true do |t|
     t.integer  "photo_id"
@@ -43,6 +43,13 @@ ActiveRecord::Schema.define(version: 20140909115545) do
 
   add_index "places", ["identifier"], name: "index_places_on_identifier", unique: true
 
+  create_table "routes", force: true do |t|
+    t.string   "title",      null: false
+    t.string   "subtitle"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "translations", force: true do |t|
     t.integer  "place_id"
     t.string   "title"
@@ -50,6 +57,14 @@ ActiveRecord::Schema.define(version: 20140909115545) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "language"
+  end
+
+  create_table "waypoints", force: true do |t|
+    t.integer  "route_id"
+    t.float    "lat",        null: false
+    t.float    "lng",        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

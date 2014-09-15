@@ -75,8 +75,9 @@ function sendWaypointsJSON() {
       lng: waypoints[i].lng()
     });
   }
+
   $.ajax({
-    url: "/routes/save",
+    url: "save",
     type: "post",
     data: "waypoints=" + JSON.stringify(waypointsJson),
     success: function(){

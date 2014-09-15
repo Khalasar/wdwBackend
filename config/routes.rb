@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   end
 
   resources :routes
-  post 'routes/save' => 'routes#save'
+  get 'routes/:id/map' => 'routes#map', :as => "route_map"
+  post 'routes/:id/save' => 'routes#save'
 
   get 'places/:id/get_images' => 'places#get_images'
   get 'translations' => 'places#translations'
