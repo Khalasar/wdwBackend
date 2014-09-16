@@ -49,3 +49,4 @@ gem 'carrierwave'
 
 gem 'bootstrap-sass', '~> 2.3.2.1'
 gem 'rubyzip'
+gem 'gon'

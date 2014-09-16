@@ -5,44 +5,133 @@ var markers = [];
 
 function initialize() {
 
-  var mapOptions = {
-          center: new google.maps.LatLng(51.665041, 7.631431),
-          zoom: 14,
-          mapTypeId: google.maps.MapTypeId.NORMAL,
-          panControl: true,
-          scaleControl: false,
-          streetViewControl: true,
-          overviewMapControl: true
-        };
-  // initializing map
-  map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
+  if (typeof(google) === 'undefined') {
+    loadScript('initialize');
+  } else {
+    var mapOptions = {
+      center: new google.maps.LatLng(51.665041, 7.631431),
+      zoom: 14,
+      mapTypeId: google.maps.MapTypeId.NORMAL,
+      panControl: true,
+      scaleControl: false,
+      streetViewControl: true,
+      overviewMapControl: true
+    };
+    // initializing map
+    map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
 
-  /*// initialize marker
-  var marker = new google.maps.Marker({
-    position: map.getCenter(),
-    map: map,
-    title: 'Click to zoom'
-  });*/
-
-  var polyOptions = {
+    var polyOptions = {
       strokeColor: '#000000',
       strokeOpacity: 1.0,
       strokeWeight: 3
-  };
-  poly = new google.maps.Polyline(polyOptions);
-  poly.setMap(map);
+    };
+    poly = new google.maps.Polyline(polyOptions);
+    poly.setMap(map);
+    poly.setPath(waypoints);
 
-  // Add a listener for the click event
-  google.maps.event.addListener(map, 'click', addLatLng);
+    google.maps.event.addListener(map, 'click', addLatLng);
+
+    if (waypoints.length <= 0) {
+      if (typeof(gon) === 'undefined') {
+        console.log("gon undefined");
+      }else {
+        w = gon.waypoints;
+        for (i = 0; i < w.length; i++) {
+          latlng = new google.maps.LatLng(w[i].lat,w[i].lng);
+          waypoints.push(latlng);
+        }
+      }
+    }
+
+    for (i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+      markers.splice(i,1);
+    }
+    for (i = 0; i < waypoints.length; i++) {
+      addMarker(waypoints[i]);
+    }
+    centerMap(waypoints);
+    poly.setPath(waypoints);
+  }
+}
+
+function initializeMapView() {
+
+  if (typeof(google) === 'undefined') {
+    loadScript("initializeMapView");
+  } else {
+    var mapOptions = {
+      center: new google.maps.LatLng(51.665041, 7.631431),
+      zoom: 14,
+      mapTypeId: google.maps.MapTypeId.NORMAL,
+      panControl: true,
+      scaleControl: false,
+      streetViewControl: true,
+      overviewMapControl: true
+    };
+    // initializing map
+    map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
+
+    console.log('testest', waypoints);
+    if (waypoints.length <= 0) {
+      if (typeof(gon) === 'undefined') {
+        console.log("gon undefined");
+      }else {
+        w = gon.waypoints;
+        for (i = 0; i < w.length; i++) {
+          latlng = new google.maps.LatLng(w[i].lat,w[i].lng);
+          waypoints.push(latlng);
+        }
+      }
+    }
+    centerMap(waypoints);
+    removeListeners()
+
+    var polyOptions = {
+      strokeColor: '#000000',
+      strokeOpacity: 1.0,
+      strokeWeight: 3
+    };
+    poly = new google.maps.Polyline(polyOptions);
+    poly.setMap(map);
+    poly.setPath(waypoints);
+  }
+}
+
+function centerMap (wayp) {
+  var bound = new google.maps.LatLngBounds();
+
+  for (i = 0; i < wayp.length; i++) {
+    bound.extend( new google.maps.LatLng(wayp[i].lat(), wayp[i].lng()) );
+  }
+
+  var center;
+  if (bound.isEmpty()) {
+    center = new google.maps.LatLng(51.665041, 7.631431);
+  }else {
+    center = bound.getCenter();
+    map.fitBounds(bound);
+  }
+  map.setCenter(center);
+}
+
+function removeListeners() {
+  if (typeof(map) !== 'undefined') {
+    google.maps.event.clearListeners(map, 'click');
+  }
 }
 
 function addLatLng(event) {
   draggedWaypoint = waypoints.length;
   setPolylinePath(event);
 
+  addMarker(event.latLng);
+}
+
+function addMarker(latLng) {
   // Add a new marker at the new plotted point on the polyline.
   var marker = new google.maps.Marker({
-    position: event.latLng,
+    position: latLng,
     draggable:true,
     animation: google.maps.Animation.DROP,
     map: map,
@@ -64,10 +153,11 @@ function setPolylinePath(event) {
   }
   poly.setPath(waypoints);
 
-  sendWaypointsJSON();
+  //sendWaypointsJSON();
 }
 
 function sendWaypointsJSON() {
+  alert('save route');
   var waypointsJson = [];
   for (i = 0; i < waypoints.length; i++) {
     waypointsJson.push({
@@ -87,7 +177,6 @@ function sendWaypointsJSON() {
      console.log("error sending waypoint json");
     }
   });
-  console.log(waypointsJson);
 }
 
 function findDraggedWaypoint(event) {
@@ -111,7 +200,7 @@ function removeWaypoint(event) {
   }
 }
 
-function loadScript() {
+function loadScript(initialize) {
   console.log("map loading ...");
   var script = document.createElement('script');
   script.type = 'text/javascript';
@@ -119,8 +208,8 @@ function loadScript() {
     //'&v=3.14'+
     '&sensor=false'+
     '&key=AIzaSyDVy2E1b4Sm3jwkMVmfNruDfQ_PDVylGlE'+
-    '&libraries=drawing'+
+    '&libraries=drawing' +
     //'&language=de' +
-    '&callback=initialize';
+    '&callback=' + initialize;
   document.body.appendChild(script);
 }

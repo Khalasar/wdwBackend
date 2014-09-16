@@ -10,6 +10,7 @@ class RoutesController < ApplicationController
       @route.waypoints.build(lat: waypoint["lat"], lng: waypoint["lng"])
     end
     @route.save
+
     render :nothing => true
   end
 
@@ -26,6 +27,8 @@ class RoutesController < ApplicationController
   end
 
   def show
+    gon.waypoints = @route.waypoints
+
     respond_to do |format|
       format.html
       format.json { render json: @route }
@@ -37,6 +40,7 @@ class RoutesController < ApplicationController
   end
 
   def edit
+    gon.waypoints = @route.waypoints
   end
 
   def create
