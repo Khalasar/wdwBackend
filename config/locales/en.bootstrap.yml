@@ -19,6 +19,7 @@ en:
       ready: "Ready"
       next: "Next"
       save: "Save"
+      overview: "Overview"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"

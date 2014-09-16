@@ -157,7 +157,6 @@ function setPolylinePath(event) {
 }
 
 function sendWaypointsJSON() {
-  alert('save route');
   var waypointsJson = [];
   for (i = 0; i < waypoints.length; i++) {
     waypointsJson.push({
