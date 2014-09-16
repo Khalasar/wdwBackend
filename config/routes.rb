@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   post 'routes/:id/save' => 'routes#save'
 
   get 'places/:id/get_images' => 'places#get_images'
-  get 'translations' => 'places#translations'
+  get 'translations' => 'translations#index'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

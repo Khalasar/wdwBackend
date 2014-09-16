@@ -2,6 +2,7 @@ require 'json'
 
 class RoutesController < ApplicationController
   before_action :set_route, only: [:show, :edit, :update, :destroy, :map, :save]
+  before_action :supported_languages
 
   def save
     waypoints = JSON.parse params[:waypoints]
@@ -15,6 +16,7 @@ class RoutesController < ApplicationController
   end
 
   def map
+    gon.places = Place.all
   end
 
   def index
@@ -37,10 +39,15 @@ class RoutesController < ApplicationController
 
   def new
     @route = Route.new
+    supported_languages.count.times { @route.route_translations.build }
+
   end
 
   def edit
     gon.waypoints = @route.waypoints
+
+    new_languages = @supported_languages.count - @route.route_translations.count
+    new_languages.times { @route.route_translations.build }
   end
 
   def create
@@ -95,7 +102,12 @@ class RoutesController < ApplicationController
   def route_params
     params.require(:route).permit(
       :title,
-      :subtitle
+      :subtitle,
+      route_translations_attributes: [:id, :title, :subtitle, :language]
     )
+  end
+
+  def supported_languages
+    @supported_languages = [:de, :en, :pl]
   end
 end

@@ -2,18 +2,22 @@
 .page-header
   %h1= t '.title', :default => model_class.model_name.human.titleize
 
-%dl.dl-horizontal.show-page
-  %dt
-    %strong
-      = model_class.human_attribute_name(:title)
-      \:
-  %dd= @route.title
-  %dt
-    %strong
-      = model_class.human_attribute_name(:subtitle)
-      \:
-  %dd= @route.subtitle
-  %br
+.table-responsive
+  %table.table.table-striped.table-hover.table-condensed
+    %thead
+      %tr
+        %th= "Language"
+        %th= "Title"
+        %th= "Subtitle"
+    %tbody
+      - @route.route_translations.each do |translation|
+        %tr
+          %td
+            = translation.language
+          %td
+            = translation.title
+          %td
+            = translation.subtitle
 
 .div#map-container
   .div#map-canvas

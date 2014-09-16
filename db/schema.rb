@@ -53,8 +53,6 @@ ActiveRecord::Schema.define(version: 20140916121223) do
   end
 
   create_table "routes", force: true do |t|
-    t.string   "title",      null: false
-    t.string   "subtitle"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

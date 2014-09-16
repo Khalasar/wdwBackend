@@ -2,6 +2,8 @@ var map;
 var waypoints = [];
 var draggedWaypoint;
 var markers = [];
+var placeMarkers = [];
+var placeListener = [];
 
 function initialize() {
 
@@ -34,11 +36,16 @@ function initialize() {
     if (waypoints.length <= 0) {
       if (typeof(gon) === 'undefined') {
         console.log("gon undefined");
-      }else {
+      }else if (typeof(gon.waypoints) !== 'undefined'){
         w = gon.waypoints;
         for (i = 0; i < w.length; i++) {
           latlng = new google.maps.LatLng(w[i].lat,w[i].lng);
           waypoints.push(latlng);
+        }
+      }else if (typeof(gon.places) !== 'undefined'){
+        p = gon.places;
+        for (i = 0; i < p.length; i++) {
+          addPlaceMarker(p[i], i);
         }
       }
     }
@@ -143,6 +150,55 @@ function addMarker(latLng) {
   google.maps.event.addListener(marker,'dragstart', findDraggedWaypoint);
   google.maps.event.addListener(marker,'dragend', setPolylinePath);
   google.maps.event.addListener(marker,'rightclick', removeWaypoint);
+}
+
+function addPlaceMarker(place, i) {
+  var infowindow = new google.maps.InfoWindow({
+      content: place.title
+  });
+
+  // Add a new marker at the new plotted point on the polyline.
+  var image = '/images/marker-blue.png';
+  var marker = new google.maps.Marker({
+    position: new google.maps.LatLng(place.lat, place.lng),
+    animation: google.maps.Animation.DROP,
+    map: map,
+    //zIndex: markers.length,
+    icon: image,
+    title: "sdsds"
+  });
+
+  //placeMarkers.push(marker);
+  placeMarkers.push(marker);
+
+  google.maps.event.addListener(marker, 'dblclick', function() {
+    infowindow.open(map,marker);
+  });
+  google.maps.event.addListener(marker, 'click', addPlaceToWaypoints);
+}
+
+function addPlaceToWaypoints(event) {
+  draggedWaypoint = waypoints.length;
+  setPolylinePath(event);
+
+  for (var i = 0; i < placeMarkers.length; i++) {
+    if (placeMarkers[i].position.lat() === event.latLng.lat() &&
+        placeMarkers[i].position.lng() === event.latLng.lng()) {
+      google.maps.event.addListener(placeMarkers[i], 'rightclick', deletePlaceFromWaypoints);
+    }
+  }
+}
+
+function deletePlaceFromWaypoints(event) {
+  findDraggedWaypoint(event);
+  setPolylinePath(null);
+
+  for (var i = 0; i < placeMarkers.length; i++) {
+    if (placeMarkers[i].position.lat() === event.latLng.lat() &&
+        placeMarkers[i].position.lng() === event.latLng.lng()) {
+      google.maps.event.clearListeners(placeMarkers[i], 'rightclick');
+    }
+  }
 }
 
 function setPolylinePath(event) {

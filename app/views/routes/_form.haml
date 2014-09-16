@@ -12,16 +12,21 @@
           - @route.errors.full_messages.each do |msg|
             %li= msg
 
-  .control-group
-    = f.label :title, :class => 'control-label'
-    .controls
-      = f.text_field :title, :class => 'form-control'
-    = error_span(@route[:title])
-  .control-group
-    = f.label :subtitle, :class => 'control-label'
-    .controls
-      = f.text_field :subtitle, :class => 'form-control'
-    = error_span(@route[:subtitle])
+  %table.table.table-striped.table-hover
+    %thead
+      %tr
+        %th= "Language"
+        %th= "Title"
+        %th= "Subtitle"
+    %tbody
+      = f.fields_for :route_translations do |translation_fields|
+        %tr
+          %td
+            = translation_fields.select :language, @supported_languages, { include_blank: true }
+          %td
+            = translation_fields.text_field :title, :class => 'form-control'
+          %td
+            = translation_fields.text_field :subtitle, :class => 'form-control'
 
   .buttons
     #create-route= f.submit t("helpers.links.#{btn_name}"), :class => 'btn btn-primary'
