@@ -2,6 +2,7 @@ de:
   pages:
     button:
       places: "Orte"
+      routes: "Routen"
     header:
       headline: "Überschrift"
   date:

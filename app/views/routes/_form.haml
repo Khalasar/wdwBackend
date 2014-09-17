@@ -1,0 +1,34 @@
+- btn_name ||= "next"
+
+= form_for @route, :html => { :class => "form-horizontal route", :multipart => true } do |f|
+  - if @route.errors.any?
+    #error_expl.panel.panel-danger
+      .panel-heading
+        %h3.panel-title
+          = pluralize(@route.errors.count, "error")
+          prohibited this route from being saved:
+      .panel-body
+        %ul
+          - @route.errors.full_messages.each do |msg|
+            %li= msg
+
+  %table.table.table-striped.table-hover
+    %thead
+      %tr
+        %th= "Language"
+        %th= "Title"
+        %th= "Subtitle"
+    %tbody
+      = f.fields_for :route_translations do |translation_fields|
+        %tr
+          %td
+            = translation_fields.select :language, @supported_languages, { include_blank: true }
+          %td
+            = translation_fields.text_field :title, :class => 'form-control'
+          %td
+            = translation_fields.text_field :subtitle, :class => 'form-control'
+
+  .buttons
+    #create-route= f.submit t("helpers.links.#{btn_name}"), :class => 'btn btn-primary'
+    %br
+    = link_to t('.cancel', :default => t("helpers.links.cancel")), routes_path, :class => 'btn btn-default'

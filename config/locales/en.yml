@@ -2,8 +2,11 @@ en:
   pages:
     button:
       places: "Places"
+      routes: "Routes"
     header:
       headline: "Headline"
+      routes: "Route-Overview"
+      map: "Map"
   date:
     abbr_day_names:
     - Sun

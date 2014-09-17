@@ -1,0 +1,35 @@
+- model_class = Route
+.page-header
+  %h1= t '.title', :default => model_class.model_name.human.titleize
+
+.table-responsive
+  %table.table.table-striped.table-hover.table-condensed
+    %thead
+      %tr
+        %th= "Language"
+        %th= "Title"
+        %th= "Subtitle"
+    %tbody
+      - @route.route_translations.each do |translation|
+        %tr
+          %td
+            = translation.language
+          %td
+            = translation.title
+          %td
+            = translation.subtitle
+
+.div#map-container
+  .div#map-canvas
+
+%br
+= link_to t('.overview', :default => t("helpers.links.overview")), routes_path, :class => 'btn btn-default'
+-#
+= link_to t('.edit', :default => t("helpers.links.edit")), edit_route_path(@route), :class => 'btn btn-default'
+-#
+= link_to t('.destroy', :default => t("helpers.links.destroy")), route_path(@route), :method => 'delete', :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'
+
+:javascript
+  $(function () {
+    initializeMapView();
+  });
