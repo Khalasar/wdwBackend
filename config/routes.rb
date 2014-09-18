@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :routes
   get 'routes/:id/map' => 'routes#map', :as => "route_map"
   post 'routes/:id/save' => 'routes#save'
+  post 'routes/:id/save_places' => 'routes#save_places'
 
   get 'places/:id/get_images' => 'places#get_images'
   get 'translations' => 'translations#index'

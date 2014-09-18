@@ -1,7 +1,8 @@
 require 'json'
 
 class RoutesController < ApplicationController
-  before_action :set_route, only: [:show, :edit, :update, :destroy, :map, :save]
+  before_action :set_route, only: [:show, :edit, :update, :destroy,
+                                   :map, :save, :save_places]
   before_action :supported_languages
 
   def save
@@ -9,6 +10,18 @@ class RoutesController < ApplicationController
     @route.waypoints.destroy_all
     waypoints.each do |waypoint|
       @route.waypoints.build(lat: waypoint["lat"], lng: waypoint["lng"])
+    end
+    @route.save
+
+    render :nothing => true
+  end
+
+  def save_places
+    placesID = JSON.parse params[:placesID]
+    @route.places = []
+    @route.place_order = placesID.join(',')
+    placesID.each do |id|
+      @route.places << Place.find(id)
     end
     @route.save
 
@@ -76,7 +89,8 @@ class RoutesController < ApplicationController
         format.json { render :show, status: :ok, location: @route }
       else
         format.html { render :edit }
-        format.json { render json: @route.errors, status: :unprocessable_entity }
+        format.json { render json: @route.errors,
+                             status: :unprocessable_entity }
       end
     end
   end

@@ -15,4 +15,5 @@
 //= require jquery-fileupload
 //= require twitter/bootstrap
 //= require turbolinks
+//= require multi-select
 //= require_tree .

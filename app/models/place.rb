@@ -10,6 +10,7 @@ class Place < ActiveRecord::Base
 
   has_many :photos, dependent: :destroy
   has_many :translations, dependent: :destroy
+  has_and_belongs_to_many :routes
 
   accepts_nested_attributes_for :photos, allow_destroy: true
   accepts_nested_attributes_for :translations

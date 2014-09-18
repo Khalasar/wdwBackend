@@ -5,6 +5,28 @@ de:
       routes: "Routen"
     header:
       headline: "Überschrift"
+  helpers:
+    actions: "Actions"
+    links:
+      back: "Zurück"
+      cancel: "Abbrechen"
+      confirm: "Sind Sie sicher?"
+      destroy: "Löschen"
+      new: "Neu"
+      edit: "Bearbeiten"
+      ready: "Fertig"
+      next: "Weiter"
+      save: "Speichern"
+      overview: "Überblick"
+    titles:
+      edit: "Bearbeite %{model}"
+      save: "Speicher %{model}"
+      new: "Neue %{model}"
+      delete: "Lösche %{model}"
+      upload: "Upload %{model}"
+      show: "Zeige %{model}"
+      all: "Alle %{model}s"
+      image_count: "Image count"
   date:
     abbr_day_names:
     - So

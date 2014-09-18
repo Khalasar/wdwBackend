@@ -1,6 +1,8 @@
 .page-header
   %h1= t '.title', :default => t("pages.header.map")
 
+= select_tag 'place_id[]', options_for_select(Place.all.collect{ |p| [p.identifier, p.id] }), {'multiple'=>'multiple', :id => 'multi-select'}
+
 .div#map-container
   .div#map-canvas
 
@@ -10,8 +12,10 @@
 
 :javascript
   $(function () {
+    setMultiSelect();
     initialize();
+
     $("#create-route").click(function () {
-      sendWaypointsJSON()
+      sendWaypointsJSON();
     });
   });
