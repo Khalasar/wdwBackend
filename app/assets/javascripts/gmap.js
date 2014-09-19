@@ -3,105 +3,101 @@ var waypoints = [];
 var draggedWaypoint;
 var markers = [];
 var placeMarkers = [];
-var placeListener = [];
+var places = [];
+var eventListener = [];
+var notOnShowt;
 
-function initialize() {
+function removeListener() {
+  /*for (var i = 0; i < eventListener.length; i++) {
+
+    //google.maps.event.removeListener(eventListener[i]);
+  };*/
+  if (typeof(map) !== 'undefined' && eventListener.length > 0) {
+    google.maps.event.clearListeners(map, 'click');
+  }
+  notOnShowt= false;
+}
+
+function notOnShow(b) {
+  notOnShowt = true;
+}
+
+function initialize(notOnShow) {
 
   if (typeof(google) === 'undefined') {
+    notOnShowt= notOnShow;
     loadScript('initialize');
   } else {
-    var mapOptions = {
-      center: new google.maps.LatLng(51.665041, 7.631431),
-      zoom: 14,
-      mapTypeId: google.maps.MapTypeId.NORMAL,
-      panControl: true,
-      scaleControl: false,
-      streetViewControl: true,
-      overviewMapControl: true
-    };
-    // initializing map
-    map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
+    initializeMap();
+    initializePolyline();
 
-    var polyOptions = {
-      strokeColor: '#000000',
-      strokeOpacity: 1.0,
-      strokeWeight: 3
-    };
-    poly = new google.maps.Polyline(polyOptions);
-    poly.setMap(map);
-    poly.setPath(waypoints);
+    if (!waypointsAvailable() && typeof(gon) !== 'undefined') {
 
-    google.maps.event.addListener(map, 'click', addLatLng);
-
-    if (waypoints.length <= 0) {
-      if (typeof(gon) === 'undefined') {
-        console.log("gon undefined");
-      }else if (typeof(gon.waypoints) !== 'undefined'){
-        w = gon.waypoints;
-        for (i = 0; i < w.length; i++) {
-          latlng = new google.maps.LatLng(w[i].lat,w[i].lng);
-          waypoints.push(latlng);
-        }
-      }else if (typeof(gon.places) !== 'undefined'){
-        p = gon.places;
-        for (i = 0; i < p.length; i++) {
-          addPlaceMarker(p[i], i);
-        }
-      }
+      loadWaypointsFromCtrl();
     }
 
-    for (i = 0; i < markers.length; i++) {
-      markers[i].setMap(null);
-      markers.splice(i,1);
+    loadPlaceMarker();
+
+    removeWaypointMarkers();
+
+    if (notOnShowt) {
+      eventListener.push(google.maps.event.addListener(map, 'click', addLatLng));
+      addWaypointMarkers();
     }
-    for (i = 0; i < waypoints.length; i++) {
-      addMarker(waypoints[i]);
-    }
+
     centerMap(waypoints);
     poly.setPath(waypoints);
   }
 }
 
-function initializeMapView() {
+function initializeMap(listener) {
+  var mapOptions = {
+    center: new google.maps.LatLng(51.665041, 7.631431),
+    zoom: 14,
+    mapTypeId: google.maps.MapTypeId.NORMAL,
+    panControl: true,
+    scaleControl: false,
+    streetViewControl: true,
+    overviewMapControl: true
+  };
+  // initializing map
+  map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
+}
 
-  if (typeof(google) === 'undefined') {
-    loadScript("initializeMapView");
-  } else {
-    var mapOptions = {
-      center: new google.maps.LatLng(51.665041, 7.631431),
-      zoom: 14,
-      mapTypeId: google.maps.MapTypeId.NORMAL,
-      panControl: true,
-      scaleControl: false,
-      streetViewControl: true,
-      overviewMapControl: true
-    };
-    // initializing map
-    map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
+function initializePolyline() {
+  var polyOptions = {
+    strokeColor: '#000000',
+    strokeOpacity: 1.0,
+    strokeWeight: 3
+  };
+  poly = new google.maps.Polyline(polyOptions);
+  poly.setMap(map);
+}
 
-    console.log('testest', waypoints);
-    if (waypoints.length <= 0) {
-      if (typeof(gon) === 'undefined') {
-        console.log("gon undefined");
-      }else {
-        w = gon.waypoints;
-        for (i = 0; i < w.length; i++) {
-          latlng = new google.maps.LatLng(w[i].lat,w[i].lng);
-          waypoints.push(latlng);
-        }
-      }
+function waypointsAvailable(){
+  return waypoints.length > 0;
+}
+
+function loadWaypointsFromCtrl() {
+  if (typeof(gon.waypoints) !== 'undefined'){
+    w = gon.waypoints;
+    for (i = 0; i < w.length; i++) {
+      latlng = new google.maps.LatLng(w[i].lat,w[i].lng);
+      waypoints.push(latlng);
     }
-    centerMap(waypoints);
-    removeListeners()
+  }
+}
 
-    var polyOptions = {
-      strokeColor: '#000000',
-      strokeOpacity: 1.0,
-      strokeWeight: 3
-    };
-    poly = new google.maps.Polyline(polyOptions);
-    poly.setMap(map);
-    poly.setPath(waypoints);
+function removeWaypointMarkers() {
+  for (i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+    markers.splice(i,1);
+  }
+}
+
+function addWaypointMarkers() {
+  for (i = 0; i < waypoints.length; i++) {
+    addMarker(waypoints[i]);
   }
 }
 
@@ -120,12 +116,6 @@ function centerMap (wayp) {
     map.fitBounds(bound);
   }
   map.setCenter(center);
-}
-
-function removeListeners() {
-  if (typeof(map) !== 'undefined') {
-    google.maps.event.clearListeners(map, 'click');
-  }
 }
 
 function addLatLng(event) {
@@ -152,9 +142,23 @@ function addMarker(latLng) {
   google.maps.event.addListener(marker,'rightclick', removeWaypoint);
 }
 
-function addPlaceMarker(place, i) {
+function loadPlaceMarker() {
+  placeMarkers = [];
+  if (typeof(gon) !== 'undefined' && typeof(gon.route_places) !== 'undefined') {
+    route_places = gon.route_places;
+    for (i = 0; i < route_places.length; i++) {
+      addPlaceMarker(route_places[i]);
+    }
+  }else {
+    for (i = 0; i < places.length; i++) {
+      addPlaceMarker(places[i]);
+    }
+  }
+}
+
+function addPlaceMarker(place) {
   var infowindow = new google.maps.InfoWindow({
-      content: place.title
+      content:  place.title
   });
 
   // Add a new marker at the new plotted point on the polyline.
@@ -168,36 +172,29 @@ function addPlaceMarker(place, i) {
     title: "sdsds"
   });
 
-  //placeMarkers.push(marker);
-  placeMarkers.push(marker);
+  var markerObject = {id:place.id, marker:marker};
+  placeMarkers.push(markerObject);
+  places.push(place);
 
-  google.maps.event.addListener(marker, 'dblclick', function() {
+  google.maps.event.addListener(marker, 'click', function() {
     infowindow.open(map,marker);
   });
-  google.maps.event.addListener(marker, 'click', addPlaceToWaypoints);
 }
 
-function addPlaceToWaypoints(event) {
-  draggedWaypoint = waypoints.length;
-  setPolylinePath(event);
-
-  for (var i = 0; i < placeMarkers.length; i++) {
-    if (placeMarkers[i].position.lat() === event.latLng.lat() &&
-        placeMarkers[i].position.lng() === event.latLng.lng()) {
-      google.maps.event.addListener(placeMarkers[i], 'rightclick', deletePlaceFromWaypoints);
-    }
-  }
+function addPlaceMarkers(places) {
+  //removePlaceMarker
+  for (var i = 0; i < places.length; i++) {
+    addPlaceMarker(places[i]);
+  };
 }
 
-function deletePlaceFromWaypoints(event) {
-  findDraggedWaypoint(event);
-  setPolylinePath(null);
-
+function removePlaceMarker(placeID) {
   for (var i = 0; i < placeMarkers.length; i++) {
-    if (placeMarkers[i].position.lat() === event.latLng.lat() &&
-        placeMarkers[i].position.lng() === event.latLng.lng()) {
-      google.maps.event.clearListeners(placeMarkers[i], 'rightclick');
-    }
+    if (placeMarkers[i].id == placeID) {
+      placeMarkers[i].marker.setMap(null);
+      placeMarkers.splice(i,1);
+      break;
+    };
   }
 }
 

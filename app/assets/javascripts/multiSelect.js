@@ -1,5 +1,4 @@
 var placesID = [];
-
 function setMultiSelect(){
 	$('#multi-select').multiSelect({
 	  keepOrder: true,
@@ -7,18 +6,24 @@ function setMultiSelect(){
 	  selectionHeader: "<div class='custom-header'>Selection places of interest</div>",
 	  afterSelect: function(value){
 	  	placesID.push(value[0]);
-	  	sendPlacesForRoute(placesID);
+	  	if (placesID.length > 0) {
+		  	sendPlacesForRoute(placesID);
+	  	};
 	    //alert("Select value: "+placesID);
 	  },
 	  afterDeselect: function(value){
 			var index = placesID.indexOf(value[0]);
+			removePlaceMarker(placesID[index]);
 	  	placesID.splice(index,1);
-	  	sendPlacesForRoute(placesID);
+	  	//sendPlacesForRoute(placesID);
 	    //alert("Deselect value: "+placesID);
 	  },
 	  afterInit: function(){
 	  	var selected = $('select#multi-select').val();
-	  	sendPlacesForRoute(selected);
+	  	if (selected) {
+	  		placesID = selected;
+	  		//sendPlacesForRoute(placesID);
+	  	};
 	  }
 	});
 }
@@ -28,8 +33,24 @@ function sendPlacesForRoute(placesID){
     url: "save_places",
     type: "post",
     data: "placesID=" + JSON.stringify(placesID),
-    success: function(){
-      //alert('Saved Successfully');
+    success: function(result, status){
+     //console.log(result);
+     addPlaceMarker(result);
+    },
+    error:function(){
+     console.log("error sending placesID");
+    }
+  });
+}
+
+function sendPlaces(placesID){
+	console.log('sendPlaces', placesID);
+	$.ajax({
+    url: "save_places",
+    type: "post",
+    data: "placesID=" + JSON.stringify(placesID),
+    success: function(result, status){
+     //console.log(result);
     },
     error:function(){
      console.log("error sending placesID");

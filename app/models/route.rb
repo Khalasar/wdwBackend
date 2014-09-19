@@ -25,7 +25,7 @@ class Route < ActiveRecord::Base
     {
       "id" => id,
       "title" => "route_#{id}_title",
-      "subtitle" => "#route_{id}_subtitle",
+      "subtitle" => "route_#{id}_subtitle",
       "places" => place_order,
       "waypoints" => waypoints
     }

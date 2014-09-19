@@ -29,6 +29,6 @@
             = translation_fields.text_field :subtitle, :class => 'form-control'
 
   .buttons
-    #create-route= f.submit t("helpers.links.#{btn_name}"), :class => 'btn btn-primary'
+    #create-route= f.submit btn_name, :class => 'btn btn-primary'
     %br
     = link_to t('.cancel', :default => t("helpers.links.cancel")), routes_path, :class => 'btn btn-default'

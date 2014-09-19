@@ -17,19 +17,20 @@ class RoutesController < ApplicationController
   end
 
   def save_places
+    temp_place = nil;
     placesID = JSON.parse params[:placesID]
     @route.places = []
     @route.place_order = placesID.join(',')
     placesID.each do |id|
       @route.places << Place.find(id)
+      temp_place = Place.find(id)
     end
     @route.save
 
-    render :nothing => true
+    render :json => temp_place
   end
 
   def map
-    gon.places = Place.all
   end
 
   def index
@@ -43,6 +44,8 @@ class RoutesController < ApplicationController
 
   def show
     gon.waypoints = @route.waypoints
+    gon.route_places = @route.places
+    p :rouesplac => @route.places.count
 
     respond_to do |format|
       format.html
@@ -58,6 +61,7 @@ class RoutesController < ApplicationController
 
   def edit
     gon.waypoints = @route.waypoints
+    gon.route_places = @route.places
 
     new_languages = @supported_languages.count - @route.route_translations.count
     new_languages.times { @route.route_translations.build }

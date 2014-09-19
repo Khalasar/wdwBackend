@@ -13,9 +13,11 @@
 :javascript
   $(function () {
     setMultiSelect();
-    initialize();
+    notOnShow(true);
+    initialize(true);
 
     $("#create-route").click(function () {
       sendWaypointsJSON();
+      sendPlacesForRoute(placesID);
     });
   });

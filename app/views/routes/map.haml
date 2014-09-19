@@ -1,3 +1,5 @@
+= include_gon
+
 .page-header
   %h1= t '.title', :default => t("pages.header.map")
 
@@ -13,9 +15,12 @@
 :javascript
   $(function () {
     setMultiSelect();
-    initialize();
+    initialize(true);
 
-    $("#create-route").click(function () {
+    $("#create-route").click(function (evt) {
+      evt.preventDefault();
       sendWaypointsJSON();
+      sendPlaces(placesID);
+      document.location.href = '/routes/#{@route.id}';
     });
   });
