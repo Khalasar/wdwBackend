@@ -121,7 +121,7 @@ class RoutesController < ApplicationController
     params.require(:route).permit(
       :title,
       :subtitle,
-      route_translations_attributes: [:id, :title, :subtitle, :language]
+      route_translations_attributes: [:id, :title, :subtitle, :language, :country, :city, :region, :route_type, :description]
     )
   end
 

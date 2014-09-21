@@ -21,11 +21,56 @@ class Route < ActiveRecord::Base
     end
   end
 
+  def description
+    if route_translations.find_by_language("de")
+      route_translations.find_by_language("de").description
+    else
+      ""
+    end
+  end
+
+  def country
+    if route_translations.find_by_language("de")
+      route_translations.find_by_language("de").country
+    else
+      ""
+    end
+  end
+
+  def region
+    if route_translations.find_by_language("de")
+      route_translations.find_by_language("de").region
+    else
+      ""
+    end
+  end
+
+  def city
+    if route_translations.find_by_language("de")
+      route_translations.find_by_language("de").city
+    else
+      ""
+    end
+  end
+
+
+  def route_type
+    if route_translations.find_by_language("de")
+      route_translations.find_by_language("de").route_type
+    else
+      ""
+    end
+  end
   def as_json(_options = {})
     {
       "id" => id,
       "title" => "route_#{id}_title",
       "subtitle" => "route_#{id}_subtitle",
+      "country" => "route_#{id}_country",
+      "region" => "route_#{id}_region",
+      "city" => "route_#{id}_city",
+      "description" => "route_#{id}_description",
+      "route_type" => "route_#{id}_type",
       "places" => place_order,
       "waypoints" => waypoints
     }

@@ -18,6 +18,11 @@
         %th= "Language"
         %th= "Title"
         %th= "Subtitle"
+        %th= "Description"
+        %th= "Country"
+        %th= "Region"
+        %th= "City"
+        %th= "Type"
     %tbody
       = f.fields_for :route_translations do |translation_fields|
         %tr
@@ -27,6 +32,16 @@
             = translation_fields.text_field :title, :class => 'form-control'
           %td
             = translation_fields.text_field :subtitle, :class => 'form-control'
+          %td
+            = translation_fields.text_area :description, :size=> '30x5', :class => 'form-control'
+          %td
+            = translation_fields.text_field :country, :class => 'form-control'
+          %td
+            = translation_fields.text_field :region, :class => 'form-control'
+          %td
+            = translation_fields.text_field :city, :class => 'form-control'
+          %td
+            = translation_fields.text_field :route_type, :class => 'form-control'
 
   .buttons
     #create-route= f.submit btn_name, :class => 'btn btn-primary'

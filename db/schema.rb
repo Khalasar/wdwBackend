@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140917181000) do
+ActiveRecord::Schema.define(version: 20140919161057) do
 
   create_table "photo_translations", force: true do |t|
     t.integer  "photo_id"
@@ -58,6 +58,11 @@ ActiveRecord::Schema.define(version: 20140917181000) do
     t.string   "subtitle"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
+    t.string   "country"
+    t.string   "region"
+    t.string   "city"
+    t.string   "route_type"
   end
 
   create_table "routes", force: true do |t|

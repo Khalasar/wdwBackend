@@ -9,7 +9,12 @@ class RouteTranslation < ActiveRecord::Base
   def as_json(_options = {})
     {
       "route_#{route.id}_title" => title,
-      "route_#{route.id}_subtitle" => subtitle
+      "route_#{route.id}_subtitle" => subtitle,
+      "route_#{route.id}_country" => country,
+      "route_#{route.id}_region" => region,
+      "route_#{route.id}_city" => city,
+      "route_#{route.id}_description" => description,
+      "route_#{route.id}_type" => route_type
     }
   end
 end

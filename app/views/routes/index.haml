@@ -8,6 +8,11 @@
       %th= model_class.human_attribute_name(:id)
       %th= model_class.human_attribute_name(:title)
       %th= model_class.human_attribute_name(:subtitle)
+      %th= model_class.human_attribute_name(:description)
+      %th= model_class.human_attribute_name(:country)
+      %th= model_class.human_attribute_name(:region)
+      %th= model_class.human_attribute_name(:city)
+      %th= model_class.human_attribute_name(:type)
       %th= model_class.human_attribute_name(:created_at)
       %th= model_class.human_attribute_name(:updated_at)
       %th= t '.actions', :default => t("helpers.actions")
@@ -20,6 +25,16 @@
           = route.title
         %td{:class =>'clickable-row', "data-link" => route_path(route)}
           = route.subtitle
+        %td{:class =>'clickable-row', "data-link" => route_path(route)}
+          = route.description
+        %td{:class =>'clickable-row', "data-link" => route_path(route)}
+          = route.country
+        %td{:class =>'clickable-row', "data-link" => route_path(route)}
+          = route.region
+        %td{:class =>'clickable-row', "data-link" => route_path(route)}
+          = route.city
+        %td{:class =>'clickable-row', "data-link" => route_path(route)}
+          = route.route_type
         %td{:class =>'clickable-row', "data-link" => route_path(route)}
           = l route.created_at
         %td{:class =>'clickable-row', "data-link" => route_path(route)}

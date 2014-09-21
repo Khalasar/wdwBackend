@@ -11,6 +11,12 @@ module RoutesHelper
 	end
 
 	def all_places
-		Place.all.collect{ |p| [p.identifier, p.id] }
+		Place.all.collect do |p|
+		  [p.title, p.id]
+		end
+	end
+
+	def method_name
+
 	end
 end

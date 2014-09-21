@@ -9,6 +9,11 @@
         %th= "Language"
         %th= "Title"
         %th= "Subtitle"
+        %th= "Description"
+        %th= "Country"
+        %th= "Region"
+        %th= "City"
+        %th= "Type"
     %tbody
       - @route.route_translations.each do |translation|
         %tr
@@ -18,6 +23,16 @@
             = translation.title
           %td
             = translation.subtitle
+          %td
+            = translation.description
+          %td
+            = translation.country
+          %td
+            = translation.region
+          %td
+            = translation.city
+          %td
+            = translation.route_type
 
 .div#map-container
   .div#map-canvas
