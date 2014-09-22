@@ -6,3 +6,13 @@
 
 %br
 = render 'form', :btn_name => "save"
+
+
+:javascript
+  $(function () {
+
+    $("#create-route").click(function (evt) {
+      sendWaypointsJSON();
+      sendPlaces(placesID);
+    });
+  });

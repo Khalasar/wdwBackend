@@ -36,7 +36,7 @@ function initialize() {
     }
 
     loadPlaceMarker();
-
+    initSearchBox();
     removeWaypointMarkers();
 
     if (notOnShow) {
@@ -47,6 +47,28 @@ function initialize() {
     centerMap(waypoints);
     poly.setPath(waypoints);
   }
+}
+
+function initSearchBox() {
+
+  var input = document.getElementById('pac-input');
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  var searchBox = new google.maps.places.SearchBox(input);
+
+  google.maps.event.addListener(searchBox, 'places_changed', function() {
+    var places = searchBox.getPlaces();
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0, place; place = places[i]; i++) {
+      bounds.extend(place.geometry.location);
+      map.panTo(place.geometry.location);
+    }
+  });
+
+  google.maps.event.addListener(map, 'bounds_changed', function() {
+    var bounds = map.getBounds();
+    searchBox.setBounds(bounds);
+  });
 }
 
 function initializeMap(listener) {
@@ -259,7 +281,7 @@ function loadScript(initialize) {
     //'&v=3.14'+
     '&sensor=false'+
     '&key=AIzaSyDVy2E1b4Sm3jwkMVmfNruDfQ_PDVylGlE'+
-    '&libraries=drawing' +
+    '&libraries=drawing,places' +
     //'&language=de' +
     '&callback=' + initialize;
   document.body.appendChild(script);

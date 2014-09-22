@@ -118,8 +118,6 @@ class RoutesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def route_params
     params.require(:route).permit(
-      :title,
-      :subtitle,
       route_translations_attributes: [:id, :title, :subtitle, :language,
                                       :country, :city, :region, :route_type,
                                       :description]

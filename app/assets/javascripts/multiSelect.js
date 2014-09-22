@@ -1,35 +1,35 @@
 var placesID = [];
 function setMultiSelect(){
-	$('#multi-select').multiSelect({
-	  keepOrder: true,
-	  selectableHeader: "<div class='custom-header'>Selectable places of interest</div>",
-	  selectionHeader: "<div class='custom-header'>Selection places of interest</div>",
-	  afterSelect: function(value){
-	  	placesID.push(value[0]);
-	  	if (placesID.length > 0) {
-		  	sendPlacesForRoute(placesID);
-	  	};
-	    //alert("Select value: "+placesID);
-	  },
-	  afterDeselect: function(value){
-			var index = placesID.indexOf(value[0]);
-			removePlaceMarker(placesID[index]);
-	  	placesID.splice(index,1);
-	  	//sendPlacesForRoute(placesID);
-	    //alert("Deselect value: "+placesID);
-	  },
-	  afterInit: function(){
-	  	var selected = $('select#multi-select').val();
-	  	if (selected) {
-	  		placesID = selected;
-	  		//sendPlacesForRoute(placesID);
-	  	};
-	  }
-	});
+  $('#multi-select').multiSelect({
+    keepOrder: true,
+    selectableHeader: "<div class='custom-header'>Selectable places of interest</div>",
+    selectionHeader: "<div class='custom-header'>Selection places of interest</div>",
+    afterSelect: function(value){
+      placesID.push(value[0]);
+      if (placesID.length > 0) {
+        sendPlacesForRoute(placesID);
+      };
+      //alert("Select value: "+placesID);
+    },
+    afterDeselect: function(value){
+      var index = placesID.indexOf(value[0]);
+      removePlaceMarker(placesID[index]);
+      placesID.splice(index,1);
+      //sendPlacesForRoute(placesID);
+      //alert("Deselect value: "+placesID);
+    },
+    afterInit: function(){
+      var selected = $('select#multi-select').val();
+      if (selected) {
+        placesID = selected;
+        //sendPlacesForRoute(placesID);
+      };
+    }
+  });
 }
 
 function sendPlacesForRoute(placesID){
-	$.ajax({
+  $.ajax({
     url: "save_places",
     type: "post",
     data: "placesID=" + JSON.stringify(placesID),
@@ -45,7 +45,7 @@ function sendPlacesForRoute(placesID){
 }
 
 function sendPlaces(placesID){
-	$.ajax({
+  $.ajax({
     url: "save_places",
     type: "post",
     data: "placesID=" + JSON.stringify(placesID),

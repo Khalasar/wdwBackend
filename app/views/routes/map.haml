@@ -8,3 +8,13 @@
 %br
 #create-route
   = link_to t('.ready', :default => t("helpers.links.save")), route_path(@route), :class => 'btn btn-primary'
+
+:javascript
+  $(function () {
+    $("#create-route").click(function (evt) {
+      evt.preventDefault();
+      sendWaypointsJSON();
+      sendPlaces(placesID);
+      document.location.href = '/routes/#{@route.id}';
+    });
+  });
