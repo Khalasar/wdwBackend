@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140919161057) do
+ActiveRecord::Schema.define(version: 20140922084855) do
 
   create_table "photo_translations", force: true do |t|
     t.integer  "photo_id"
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 20140919161057) do
   end
 
   create_table "places", force: true do |t|
-    t.string   "identifier",   null: false
     t.string   "subtitle"
     t.text     "description"
     t.float    "lat",          null: false
@@ -40,8 +39,6 @@ ActiveRecord::Schema.define(version: 20140919161057) do
     t.string   "german_text"
     t.string   "english_text"
   end
-
-  add_index "places", ["identifier"], name: "index_places_on_identifier", unique: true
 
   create_table "places_routes", id: false, force: true do |t|
     t.integer "place_id"

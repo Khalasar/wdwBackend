@@ -8,13 +8,7 @@ class PhotoTranslation < ActiveRecord::Base
 
   def as_json(_options = {})
     {
-      "#{json_title}_#{photo.id}_caption" => caption
+      "place_#{photo.id}_caption" => caption
     }
-  end
-
-  private
-
-  def json_title
-    photo.place.identifier.downcase.tr(' ', '_')
   end
 end

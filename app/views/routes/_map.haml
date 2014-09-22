@@ -1,17 +1,18 @@
-%select{"multiple"=>"multiple"}
+= select_tag 'place_id[]', options_for_select(all_places, selected: places_selected), {'multiple'=>'multiple', :id => 'multi-select'}
 
-%br
 .div#map-container
   .div#map-canvas
 
-%br
-#create-route
-  = link_to t('.ready', :default => t("helpers.links.save")), route_path(@route), :class => 'btn btn-primary'
-
 :javascript
   $(function () {
+    setMultiSelect();
+    loadNotOnShow(true);
     initialize();
-    $("#create-route").click(function () {
-      sendWaypointsJSON()
+
+    $("#create-route").click(function (evt) {
+      evt.preventDefault();
+      sendWaypointsJSON();
+      sendPlaces(placesID);
+      document.location.href = '/routes/#{@route.id}';
     });
   });

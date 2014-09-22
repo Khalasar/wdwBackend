@@ -5,7 +5,7 @@ var markers = [];
 var placeMarkers = [];
 var places = [];
 var eventListener = [];
-var notOnShowt;
+var notOnShow;
 
 function removeListener() {
   /*for (var i = 0; i < eventListener.length; i++) {
@@ -15,17 +15,16 @@ function removeListener() {
   if (typeof(map) !== 'undefined' && eventListener.length > 0) {
     google.maps.event.clearListeners(map, 'click');
   }
-  notOnShowt= false;
+  notOnShow = false;
 }
 
-function notOnShow(b) {
-  notOnShowt = true;
+function loadNotOnShow(b) {
+  notOnShow = true;
 }
 
-function initialize(notOnShow) {
+function initialize() {
 
   if (typeof(google) === 'undefined') {
-    notOnShowt= notOnShow;
     loadScript('initialize');
   } else {
     initializeMap();
@@ -40,7 +39,7 @@ function initialize(notOnShow) {
 
     removeWaypointMarkers();
 
-    if (notOnShowt) {
+    if (notOnShow) {
       eventListener.push(google.maps.event.addListener(map, 'click', addLatLng));
       addWaypointMarkers();
     }
@@ -222,12 +221,12 @@ function sendWaypointsJSON() {
     url: "save",
     type: "post",
     data: "waypoints=" + JSON.stringify(waypointsJson),
-    success: function(){
-      //alert('Saved Successfully');
-    },
-    error:function(){
-     console.log("error sending waypoint json");
-    }
+    async: false
+  }).done(function() {
+    console.log('success');
+  })
+  .fail(function( jqXHR, textStatus, errorThrown) {
+    console.log('error waypoints');
   });
 }
 

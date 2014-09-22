@@ -1,12 +1,6 @@
 class Place < ActiveRecord::Base
   validates :lat, presence: true
   validates :lng, presence: true
-  validates :identifier,
-            presence: true,
-            uniqueness: true,
-            format: { with: /\A[a-zA-Z]+\z/,
-                      message: 'only allows letters'
-                    }
 
   has_many :photos, dependent: :destroy
   has_many :translations, dependent: :destroy
@@ -31,13 +25,13 @@ class Place < ActiveRecord::Base
   end
 
   def title
-    translations.find_by_language('en') &&
-    translations.find_by_language('en').title
+    translations.find_by_language('de') &&
+    translations.find_by_language('de').title
   end
 
   def subtitle
-    translations.find_by_language('en') &&
-    translations.find_by_language('en').subtitle
+    translations.find_by_language('de') &&
+    translations.find_by_language('de').subtitle
   end
 
   private
@@ -49,6 +43,6 @@ class Place < ActiveRecord::Base
   end
 
   def json_title
-    identifier.downcase.tr(' ', '_')
+    "#{id}_place"
   end
 end

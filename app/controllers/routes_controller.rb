@@ -6,6 +6,7 @@ class RoutesController < ApplicationController
   before_action :supported_languages
 
   def save
+    p :waypoints => params[:waypoints]
     waypoints = JSON.parse params[:waypoints]
     @route.waypoints.destroy_all
     waypoints.each do |waypoint|
@@ -13,11 +14,11 @@ class RoutesController < ApplicationController
     end
     @route.save
 
-    render :nothing => true
+    render :json => @route.waypoints
   end
 
   def save_places
-    temp_place = nil;
+    temp_place = nil
     placesID = JSON.parse params[:placesID]
     @route.places = []
     @route.place_order = placesID.join(',')
@@ -45,7 +46,6 @@ class RoutesController < ApplicationController
   def show
     gon.waypoints = @route.waypoints
     gon.route_places = @route.places
-    p :rouesplac => @route.places.count
 
     respond_to do |format|
       format.html
@@ -56,7 +56,6 @@ class RoutesController < ApplicationController
   def new
     @route = Route.new
     supported_languages.count.times { @route.route_translations.build }
-
   end
 
   def edit
@@ -121,7 +120,9 @@ class RoutesController < ApplicationController
     params.require(:route).permit(
       :title,
       :subtitle,
-      route_translations_attributes: [:id, :title, :subtitle, :language, :country, :city, :region, :route_type, :description]
+      route_translations_attributes: [:id, :title, :subtitle, :language,
+                                      :country, :city, :region, :route_type,
+                                      :description]
     )
   end
 

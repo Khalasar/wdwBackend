@@ -2,22 +2,7 @@
 .page-header
   %h1= t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize
 
-= select_tag 'place_id[]', options_for_select(all_places, selected: places_selected), {'multiple'=>'multiple', :id => 'multi-select'}
-
-.div#map-container
-  .div#map-canvas
+= render 'map'
 
 %br
 = render 'form', :btn_name => "save"
-
-:javascript
-  $(function () {
-    setMultiSelect();
-    notOnShow(true);
-    initialize(true);
-
-    $("#create-route").click(function () {
-      sendWaypointsJSON();
-      sendPlacesForRoute(placesID);
-    });
-  });

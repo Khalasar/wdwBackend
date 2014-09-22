@@ -16,6 +16,6 @@ class Translation < ActiveRecord::Base
   private
 
   def json_title
-    place.identifier.downcase.tr(' ', '_')
+    "#{place.id}_place"
   end
 end

@@ -26,11 +26,6 @@
             = translation_fields.text_field :subtitle, :class => 'form-control'
 
   .control-group
-    = f.label :identifier, :class => 'control-label'
-    .controls
-      = f.text_field :identifier, :class => 'form-control'
-    = error_span(@place[:identifier])
-  .control-group
     = f.label :lat, :class => 'control-label'
     .controls
       = f.text_field :lat, :class => 'form-control'

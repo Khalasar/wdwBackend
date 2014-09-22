@@ -33,27 +33,28 @@ function sendPlacesForRoute(placesID){
     url: "save_places",
     type: "post",
     data: "placesID=" + JSON.stringify(placesID),
-    success: function(result, status){
-     //console.log(result);
-     addPlaceMarker(result);
-    },
-    error:function(){
-     console.log("error sending placesID");
-    }
+    async: false
+  })
+  .done(function(result) {
+    addPlaceMarker(result);
+    console.log('success');
+  })
+  .fail(function() {
+    console.log('error send places for route');
   });
 }
 
 function sendPlaces(placesID){
-	console.log('sendPlaces', placesID);
 	$.ajax({
     url: "save_places",
     type: "post",
     data: "placesID=" + JSON.stringify(placesID),
-    success: function(result, status){
-     //console.log(result);
-    },
-    error:function(){
-     console.log("error sending placesID");
-    }
+    async: false
+  })
+  .done(function() {
+    console.log('success');
+  })
+  .fail(function( jqXHR, textStatus, errorThrown) {
+    console.log('error send places');
   });
 }
