@@ -108,8 +108,4 @@ class PhotosController < ApplicationController
   def place
     Place.find(params[:place_id])
   end
-
-  def supported_languages
-    @supported_languages = [:de, :en, :pl]
-  end
 end

@@ -123,8 +123,4 @@ class RoutesController < ApplicationController
                                       :description]
     )
   end
-
-  def supported_languages
-    @supported_languages = [:de, :en, :pl]
-  end
 end

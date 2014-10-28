@@ -37,10 +37,6 @@ class TranslationsController < ApplicationController
     json
   end
 
-  def supported_languages
-    @supported_languages = [:de, :en, :pl]
-  end
-
   def other_translations
     {
       :en => {
