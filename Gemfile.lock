@@ -53,6 +53,11 @@ GEM
     erubis (2.7.0)
     excon (0.40.0)
     execjs (2.2.2)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
     fog (1.24.0)
       fog-brightbox
       fog-core (~> 1.23)
@@ -211,6 +216,7 @@ DEPENDENCIES
   bootstrap-sass (~> 2.3.2.1)
   carrierwave
   coffee-rails (~> 4.0.0)
+  factory_girl_rails (~> 4.0)
   fog
   gon
   haml
