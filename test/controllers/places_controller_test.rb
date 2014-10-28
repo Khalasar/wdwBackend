@@ -21,7 +21,7 @@ class PlacesControllerTest < ActionController::TestCase
       post :create, place: { description: @place.description, lat: @place.lat, lng: @place.lng, title: @place.title }
     end
 
-    assert_redirected_to place_path(assigns(:place))
+    assert_redirected_to new_place_photo_path(assigns(:place))
   end
 
   test "should show place" do
