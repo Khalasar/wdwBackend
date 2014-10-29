@@ -16,7 +16,7 @@
         %th= "Title"
         %th= "Subtitle"
     %tbody
-      = f.fields_for :translations do |translation_fields|
+      = f.fields_for :place_translations do |translation_fields|
         %tr
           %td
             = translation_fields.select :language, @supported_languages, { include_blank: true }

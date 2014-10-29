@@ -4,7 +4,7 @@ class TranslationsController < ApplicationController
     photo_translations = {}
     route_translations = {}
     supported_languages.each do |lang|
-      translations[lang] = Translation.where(language: "#{lang}")
+      translations[lang] = PlaceTranslation.where(language: "#{lang}")
       photo_translations[lang] = PhotoTranslation.where(language: "#{lang}")
       route_translations[lang] = RouteTranslation.where(language: "#{lang}")
     end

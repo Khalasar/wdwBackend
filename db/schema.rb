@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922084855) do
+ActiveRecord::Schema.define(version: 20141026111028) do
 
   create_table "photo_translations", force: true do |t|
     t.integer  "photo_id"
@@ -29,11 +29,20 @@ ActiveRecord::Schema.define(version: 20140922084855) do
     t.string   "name"
   end
 
+  create_table "place_translations", force: true do |t|
+    t.integer  "place_id"
+    t.string   "title"
+    t.string   "subtitle"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "language"
+  end
+
   create_table "places", force: true do |t|
     t.string   "subtitle"
     t.text     "description"
-    t.float    "lat",          null: false
-    t.float    "lng",          null: false
+    t.float    "lat",          limit: 24, null: false
+    t.float    "lng",          limit: 24, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "german_text"
@@ -45,8 +54,8 @@ ActiveRecord::Schema.define(version: 20140922084855) do
     t.integer "route_id"
   end
 
-  add_index "places_routes", ["place_id", "route_id"], name: "index_places_routes_on_place_id_and_route_id"
-  add_index "places_routes", ["route_id"], name: "index_places_routes_on_route_id"
+  add_index "places_routes", ["place_id", "route_id"], name: "index_places_routes_on_place_id_and_route_id", using: :btree
+  add_index "places_routes", ["route_id"], name: "index_places_routes_on_route_id", using: :btree
 
   create_table "route_translations", force: true do |t|
     t.integer  "route_id"
@@ -68,19 +77,10 @@ ActiveRecord::Schema.define(version: 20140922084855) do
     t.string   "place_order"
   end
 
-  create_table "translations", force: true do |t|
-    t.integer  "place_id"
-    t.string   "title"
-    t.string   "subtitle"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "language"
-  end
-
   create_table "waypoints", force: true do |t|
     t.integer  "route_id"
-    t.float    "lat",        null: false
-    t.float    "lng",        null: false
+    t.float    "lat",        limit: 24, null: false
+    t.float    "lng",        limit: 24, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

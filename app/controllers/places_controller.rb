@@ -39,13 +39,13 @@ class PlacesController < ApplicationController
   # GET /places/new
   def new
     @place = Place.new
-    supported_languages.count.times { @place.translations.build }
+    supported_languages.count.times { @place.place_translations.build }
   end
 
   # GET /places/1/edit
   def edit
-    new_languages = supported_languages.count - @place.translations.count
-    new_languages.times { @place.translations.build }
+    new_languages = supported_languages.count - @place.place_translations.count
+    new_languages.times { @place.place_translations.build }
   end
 
   # POST /places
@@ -123,7 +123,7 @@ class PlacesController < ApplicationController
       :lng,
       :english_text,
       :german_text,
-      translations_attributes: [:id, :title, :subtitle, :language])
+      place_translations_attributes: [:id, :title, :subtitle, :language])
   end
 
   def zip_and_send(photo_files, text_files, place_id)

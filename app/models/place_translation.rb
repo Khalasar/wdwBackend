@@ -1,4 +1,4 @@
-class Translation < ActiveRecord::Base
+class PlaceTranslation < ActiveRecord::Base
   belongs_to :place
   validates :language, presence: true, unless: :title_empty?
 

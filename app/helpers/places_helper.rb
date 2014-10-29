@@ -1,5 +1,5 @@
 module PlacesHelper
   def translations_empty?
-    @place.translations && @place.translations.first.language.empty?
+    @place.place_translations && @place.place_translations.first.language.empty?
   end
 end

@@ -11,7 +11,7 @@
           %th= "Title"
           %th= "Subtitle"
       %tbody
-        - @place.translations.each do |translation|
+        - @place.place_translations.each do |translation|
           %tr
             %td
               = translation.language
