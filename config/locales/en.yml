@@ -4,8 +4,9 @@ en:
       places: "Places"
       routes: "Routes"
     header:
-      headline: "Headline"
-      routes: "Route-Overview"
+      headline: "WdW-Backend"
+      routes: "Routes"
+      places: "Places"
       map: "Map"
   date:
     abbr_day_names:

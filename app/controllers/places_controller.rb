@@ -155,7 +155,4 @@ class PlacesController < ApplicationController
     end
   end
 
-  def supported_languages
-    @supported_languages = [:de, :en, :pl]
-  end
 end
