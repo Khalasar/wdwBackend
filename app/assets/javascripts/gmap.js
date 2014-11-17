@@ -153,9 +153,15 @@ function addMarker(latLng) {
     draggable:true,
     animation: google.maps.Animation.DROP,
     map: map,
-    zIndex: markers.length
+    zIndex: markers.length,
+    icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
   });
 
+  if(markers.length == 0){
+    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+  }else{
+    updateLastWaypoint();
+  }
   markers.push(marker);
 
   google.maps.event.addListener(marker,'dragstart', findDraggedWaypoint);
@@ -266,9 +272,29 @@ function removeWaypoint(event) {
     if (markers[i].position == event.latLng) {
       // remove marker from map
       markers[i].setMap(null);
+      markers.splice(i,1);
       findDraggedWaypoint(event);
       setPolylinePath(null);
       break;
+    }
+  }
+  updateWaypointIcons();
+}
+
+function updateLastWaypoint() {
+  if(markers.length > 1){
+    markers[markers.length - 1]
+      .setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
+  }
+}
+
+function updateWaypointIcons() {
+  console.log(markers.length);
+  for (var i = 0; i < markers.length; i++) {
+    if (i == 0) {
+      markers[i].setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+    }else if (i == markers.length - 1) {
+      markers[i].setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
     }
   }
 }
