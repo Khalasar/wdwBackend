@@ -7,11 +7,8 @@ class PhotosControllerTest < ActionController::TestCase
 
   describe 'index' do
     it 'shows index page' do
-      place
-      get :index
-
+      get :index, :place_id => place.id
+      assert_response :success
     end
   end
-
-
 end

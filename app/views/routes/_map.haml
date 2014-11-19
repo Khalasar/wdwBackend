@@ -2,8 +2,20 @@
 
 = text_field_tag 'pac-input', '', placeholder: 'Enter location...', size: 75, class: "controls"
 
-.div#map-container
-  .div#map-canvas
+.map-content
+  .div#map-container
+    .div#map-canvas
+
+  .map-info
+    .start-point
+      = image_tag 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+      = "Startpoint"
+    .way-point
+      = image_tag 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+      = "Waypoint"
+    .end-point
+      = image_tag 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+      = "Endpoint"
 
 :javascript
   $(function () {
