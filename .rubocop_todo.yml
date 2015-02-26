@@ -14,11 +14,6 @@ Lint/AssignmentInCondition:
 Lint/HandleExceptions:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Lint/UnusedMethodArgument:
-  Enabled: true
-
 # Offense count: 9
 Metrics/AbcSize:
   Max: 25
