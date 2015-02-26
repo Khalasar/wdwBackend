@@ -19,11 +19,11 @@ class PlacesControllerTest < ActionController::TestCase
   test "should create place" do
     assert_difference('Place.count') do
       post :create,
-           place: { 
+           place: {
             description: @place.description,
             lat: @place.lat,
             lng: @place.lng,
-            title: @place.title 
+            title: @place.title
           }
     end
 
