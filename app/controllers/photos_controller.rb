@@ -48,18 +48,18 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       if @photo.save
-        format.html {
+        format.html do
           render :json => [@photo.to_jq_upload].to_json,
                  :content_type => 'text/html',
                  :layout => false
-        }
-        format.json {
+        end
+        format.json do
           render json: {
                    files: [@photo.to_jq_upload]
                  },
                  status: :created,
                  location: [@place, @photo]
-        }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
