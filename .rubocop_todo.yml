@@ -38,11 +38,6 @@ Style/AccessorMethodName:
 Style/ClassAndModuleChildren:
   Enabled: false
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/CommentIndentation:
-  Enabled: false
-
 # Offense count: 45
 Style/Documentation:
   Enabled: false
