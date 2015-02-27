@@ -23,10 +23,6 @@ Metrics/AbcSize:
 Metrics/ClassLength:
   Max: 356
 
-# Offense count: 71
-# Configuration parameters: AllowURI, URISchemes.
-Metrics/LineLength:
-  Max: 100
 
 # Offense count: 10
 # Configuration parameters: CountComments.
@@ -35,12 +31,6 @@ Metrics/MethodLength:
 
 # Offense count: 1
 Style/AccessorMethodName:
-  Enabled: false
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle, SupportedLastArgumentHashStyles.
-Style/AlignHash:
   Enabled: false
 
 # Offense count: 1

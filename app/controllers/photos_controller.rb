@@ -50,8 +50,8 @@ class PhotosController < ApplicationController
       if @photo.save
         format.html {
           render :json => [@photo.to_jq_upload].to_json,
-          :content_type => 'text/html',
-          :layout => false
+                 :content_type => 'text/html',
+                 :layout => false
         }
         format.json {
           render json: {

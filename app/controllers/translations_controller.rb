@@ -131,7 +131,7 @@ class TranslationsController < ApplicationController
         "resume" => "Fortsetzen",
         "done" => "Fertig"
       },
-    :fr => {
+      :fr => {
         "backBtn" => "Arrière",
         "placesBtn" => "Curiosités",
         "routesBtn" => "Sélection de la route",
