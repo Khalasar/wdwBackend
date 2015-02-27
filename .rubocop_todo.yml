@@ -33,11 +33,6 @@ Metrics/MethodLength:
 Style/AccessorMethodName:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/BlockEndNewline:
-  Enabled: false
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/Blocks:
