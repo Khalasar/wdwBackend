@@ -24,3 +24,5 @@
 */*/*/.nfs
 
 public/uploads*
+
+/config/database.yml
