@@ -175,6 +175,13 @@ GEM
       pry (>= 0.9.12)
       shellany (~> 0.0)
       thor (>= 0.18.1)
+    guard-compat (1.2.1)
+    guard-minitest (2.4.4)
+      guard-compat (~> 1.2)
+      minitest (>= 3.0)
+    guard-rubocop (1.2.0)
+      guard (~> 2.0)
+      rubocop (~> 0.20)
     haml (4.0.6)
       tilt
     hike (1.2.3)
@@ -341,7 +348,8 @@ DEPENDENCIES
   factory_girl_rails (~> 4.5.0)
   fog
   gon
-  guard
+  guard-minitest
+  guard-rubocop
   haml
   jbuilder (~> 2.0)
   jquery-fileupload-rails
