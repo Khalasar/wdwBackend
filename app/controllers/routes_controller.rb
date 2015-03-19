@@ -92,8 +92,9 @@ class RoutesController < ApplicationController
         format.json { render :show, status: :ok, location: @route }
       else
         format.html { render :edit }
-        format.json do render json: @route.errors,
-                              status: :unprocessable_entity
+        format.json do
+          render json: @route.errors,
+                 status: :unprocessable_entity
         end
       end
     end
