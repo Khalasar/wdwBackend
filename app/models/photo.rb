@@ -23,7 +23,7 @@ class Photo < ActiveRecord::Base
     }
   end
 
-  def as_json(_options={})
+  def as_json(_options = {})
     {
       'id' => id,
       'caption' => "place_#{id}_caption"
