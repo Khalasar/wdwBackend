@@ -20,11 +20,11 @@ class PlacesControllerTest < ActionController::TestCase
     assert_difference('Place.count') do
       post :create,
            place: {
-            description: @place.description,
-            lat: @place.lat,
-            lng: @place.lng,
-            title: @place.title
-          }
+             description: @place.description,
+             lat: @place.lat,
+             lng: @place.lng,
+             title: @place.title
+           }
     end
 
     assert_redirected_to new_place_photo_path(assigns(:place))

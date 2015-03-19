@@ -55,8 +55,8 @@ class PhotosController < ApplicationController
         end
         format.json do
           render json: {
-                   files: [@photo.to_jq_upload]
-                 },
+            files: [@photo.to_jq_upload]
+          },
                  status: :created,
                  location: [@place, @photo]
         end

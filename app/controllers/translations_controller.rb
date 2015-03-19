@@ -84,7 +84,7 @@ class TranslationsController < ApplicationController
         "satelliteLabel" => "Satellite",
         "resume" => "Resume",
         "done" => "Done"
-        },
+      },
       de: {
         "backBtn" => "Zurück",
         "placesBtn" => "Sehenswürdigkeiten",
