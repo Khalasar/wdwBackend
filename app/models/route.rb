@@ -61,6 +61,7 @@ class Route < ActiveRecord::Base
       ""
     end
   end
+
   def as_json(_options = {})
     {
       "id" => id,
