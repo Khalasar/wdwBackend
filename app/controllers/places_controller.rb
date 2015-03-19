@@ -136,13 +136,13 @@ class PlacesController < ApplicationController
           # Two arguments:
           # - The name of the file as it will appear in the archive
           # - The original file, including the path to find it
-          zipfile.add('images/'+filename, file)
+          zipfile.add('images/' + filename, file)
         end
         text_files.each do |filename, file|
           # Two arguments:
           # - The name of the file as it will appear in the archive
           # - The original file, including the path to find its
-          zipfile.add('text/'+filename, file)
+          zipfile.add('text/' + filename, file)
         end
       end
       zip_data = File.read(temp_file.path)
