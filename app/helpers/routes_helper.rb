@@ -1,9 +1,7 @@
 module RoutesHelper
   def places_selected
     if @route.places
-      @route.places.map do |place|
-        place.id
-      end
+      @route.places.map(&:id)
     else
       ''
     end

@@ -8,7 +8,7 @@ class PhotosController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       # format.json { render json: @photos }
-      format.json { render json: @photos.map { |photo| photo.to_jq_upload } }
+      format.json { render json: @photos.map(&:to_jq_upload) }
     end
   end
 

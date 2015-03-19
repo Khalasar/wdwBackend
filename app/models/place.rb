@@ -37,9 +37,7 @@ class Place < ActiveRecord::Base
   private
 
   def photo_array
-    photos.map do |p|
-      p.as_json
-    end
+    photos.map(&:as_json)
   end
 
   def json_title
