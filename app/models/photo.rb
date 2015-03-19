@@ -1,5 +1,5 @@
 class Photo < ActiveRecord::Base
-  #photo belongs to album
+  # photo belongs to album
   belongs_to  :place
   has_many :photo_translations, dependent: :destroy
 
