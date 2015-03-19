@@ -6,7 +6,7 @@ class RoutesController < ApplicationController
   before_action :supported_languages
 
   def save
-    p :waypoints => params[:waypoints]
+    p waypoints: params[:waypoints]
     waypoints = JSON.parse params[:waypoints]
     @route.waypoints.destroy_all
     waypoints.each do |waypoint|
@@ -14,7 +14,7 @@ class RoutesController < ApplicationController
     end
     @route.save
 
-    render :json => @route.waypoints
+    render json: @route.waypoints
   end
 
   def save_places
@@ -28,7 +28,7 @@ class RoutesController < ApplicationController
     end
     @route.save
 
-    render :json => temp_place
+    render json: temp_place
   end
 
   def map

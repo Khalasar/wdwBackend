@@ -1,5 +1,5 @@
 group :red_green_refactor, halt_on_fail: true do
-  guard :minitest, :spring => "spring testunit", :bundler => false do
+  guard :minitest, spring: "spring testunit", bundler: false do
     watch(%r|^test/test_helper\.rb|) { "test" }
     watch(%r|^test/.+_test\.rb|)
     watch(%r|^app/(.+)\.rb|)                               { |m| "test/#{m[1]}_test.rb" }

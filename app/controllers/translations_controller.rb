@@ -39,7 +39,7 @@ class TranslationsController < ApplicationController
 
   def other_translations
     {
-      :en => {
+      en: {
         "backBtn" => "Back",
         "placesBtn" => "Places of Interest",
         "routesBtn" => "Route selection",
@@ -85,7 +85,7 @@ class TranslationsController < ApplicationController
         "resume" => "Resume",
         "done" => "Done"
         },
-      :de => {
+      de: {
         "backBtn" => "Zurück",
         "placesBtn" => "Sehenswürdigkeiten",
         "routesBtn" => "Routen-Auswahl",
@@ -131,7 +131,7 @@ class TranslationsController < ApplicationController
         "resume" => "Fortsetzen",
         "done" => "Fertig"
       },
-      :fr => {
+      fr: {
         "backBtn" => "Arrière",
         "placesBtn" => "Curiosités",
         "routesBtn" => "Sélection de la route",
@@ -177,7 +177,7 @@ class TranslationsController < ApplicationController
         "resume" => "Continuer",
         "done" => "Fini"
       },
-      :it => {
+      it: {
         "backBtn" => "Indietro",
         "placesBtn" => "Attrazioni",
         "routesBtn" => "Percorso di selezione",
@@ -223,7 +223,7 @@ class TranslationsController < ApplicationController
         "resume" => "Continuare",
         "done" => "Pronto"
       },
-      :pl => {
+      pl: {
         "backBtn" => "z powrotem",
         "placesBtn" => "Zabytki",
         "routesBtn" => "Wybór trasy",
@@ -269,7 +269,7 @@ class TranslationsController < ApplicationController
         "resume" => "Kontynuować",
         "done" => "Gotowy"
       },
-      :tr => {
+      tr: {
         "backBtn" => "Geri",
         "placesBtn" => "Turistik yerler",
         "routesBtn" => "Rota seçimi",
@@ -315,7 +315,7 @@ class TranslationsController < ApplicationController
         "resume" => "Devam etmek",
         "done" => "Bitti"
       },
-      :nl => {
+      nl: {
         "backBtn" => "Terug",
         "placesBtn" => "Bezienswaardigheden",
         "routesBtn" => "Route selectie",

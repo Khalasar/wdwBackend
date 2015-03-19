@@ -49,9 +49,9 @@ class PhotosController < ApplicationController
     respond_to do |format|
       if @photo.save
         format.html do
-          render :json => [@photo.to_jq_upload].to_json,
-                 :content_type => 'text/html',
-                 :layout => false
+          render json: [@photo.to_jq_upload].to_json,
+                 content_type: 'text/html',
+                 layout: false
         end
         format.json do
           render json: {
