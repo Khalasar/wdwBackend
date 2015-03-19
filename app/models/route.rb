@@ -75,5 +75,4 @@ class Route < ActiveRecord::Base
       "waypoints" => waypoints
     }
   end
-
 end

@@ -29,5 +29,4 @@ class Photo < ActiveRecord::Base
       "caption" => "place_#{id}_caption"
     }
   end
-
 end

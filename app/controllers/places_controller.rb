@@ -154,5 +154,4 @@ class PlacesController < ApplicationController
       temp_file.unlink
     end
   end
-
 end
