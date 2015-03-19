@@ -15,18 +15,18 @@ class Photo < ActiveRecord::Base
 
   def to_jq_upload
     {
-      "name" => read_attribute(:file),
-      "size" => file.size,
-      "url" => file.url,
-      "delete_url" => "/places/#{place_id}/photos/#{id}",
-      "delete_type" => "DELETE"
+      'name' => read_attribute(:file),
+      'size' => file.size,
+      'url' => file.url,
+      'delete_url' => "/places/#{place_id}/photos/#{id}",
+      'delete_type' => 'DELETE'
     }
   end
 
   def as_json(_options={})
     {
-      "id" => id,
-      "caption" => "place_#{id}_caption"
+      'id' => id,
+      'caption' => "place_#{id}_caption"
     }
   end
 end

@@ -23,7 +23,7 @@ gem 'twitter-bootstrap-rails'
 gem 'haml'
 
 gem 'fog'
-gem "mini_magick"
+gem 'mini_magick'
 gem 'carrierwave'
 
 gem 'bootstrap-sass', '~> 2.3.2.1'
@@ -36,7 +36,7 @@ group :development, :test do
   gem 'yaml_db', github: 'jetthoughts/yaml_db', ref: 'fb4b6bd7e12de3cffa93e0a298a1e5253d7e92ba'
   gem 'spring'
   gem 'minitest-rails'
-  gem "factory_girl_rails", "~> 4.5.0"
+  gem 'factory_girl_rails', '~> 4.5.0'
   gem 'rubocop'
   gem 'guard-minitest'
   gem 'guard-rubocop'

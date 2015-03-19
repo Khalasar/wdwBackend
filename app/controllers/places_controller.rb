@@ -8,8 +8,8 @@ class PlacesController < ApplicationController
     photos = @place.photos
     photo_files = {}
     text_files = {}
-    text_files["en_text"] = @place.english_text.file.path if @place.english_text.file
-    text_files["de_text"] = @place.german_text.file.path if @place.german_text.file
+    text_files['en_text'] = @place.english_text.file.path if @place.english_text.file
+    text_files['de_text'] = @place.german_text.file.path if @place.german_text.file
     photos.each do |photo|
       photo_files[photo.name] = photo.file.path if File.exist?(photo.file.path)
     end
@@ -136,7 +136,7 @@ class PlacesController < ApplicationController
           # Two arguments:
           # - The name of the file as it will appear in the archive
           # - The original file, including the path to find it
-          zipfile.add("images/"+filename, file)
+          zipfile.add('images/'+filename, file)
         end
         text_files.each do |filename, file|
           # Two arguments:

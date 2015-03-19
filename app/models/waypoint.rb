@@ -3,8 +3,8 @@ class Waypoint < ActiveRecord::Base
 
   def as_json(_options = {})
     {
-      "lat" => lat,
-      "lng" => lng
+      'lat' => lat,
+      'lng' => lng
     }
   end
 end

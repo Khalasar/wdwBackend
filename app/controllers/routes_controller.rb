@@ -10,7 +10,7 @@ class RoutesController < ApplicationController
     waypoints = JSON.parse params[:waypoints]
     @route.waypoints.destroy_all
     waypoints.each do |waypoint|
-      @route.waypoints.build(lat: waypoint["lat"], lng: waypoint["lng"])
+      @route.waypoints.build(lat: waypoint['lat'], lng: waypoint['lng'])
     end
     @route.save
 

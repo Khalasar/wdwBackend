@@ -43,7 +43,7 @@ class PhotosController < ApplicationController
   def create
     @place = place
     @photo = @place.photos.build(photos_params)
-    @photo.name = @photo.file.file.filename if @photo.name = ""
+    @photo.name = @photo.file.file.filename if @photo.name = ''
     @photo.save
 
     respond_to do |format|
@@ -61,7 +61,7 @@ class PhotosController < ApplicationController
                  location: [@place, @photo]
         end
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
       end
     end
@@ -76,7 +76,7 @@ class PhotosController < ApplicationController
         format.html { redirect_to [@place, @photo], notice: 'Document was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: 'edit' }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
       end
     end
