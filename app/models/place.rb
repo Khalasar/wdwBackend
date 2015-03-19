@@ -26,12 +26,12 @@ class Place < ActiveRecord::Base
 
   def title
     place_translations.find_by_language('de') &&
-    place_translations.find_by_language('de').title
+      place_translations.find_by_language('de').title
   end
 
   def subtitle
     place_translations.find_by_language('de') &&
-    place_translations.find_by_language('de').subtitle
+      place_translations.find_by_language('de').subtitle
   end
 
   private

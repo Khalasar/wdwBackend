@@ -46,17 +46,6 @@ Style/ClassAndModuleChildren:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/MultilineOperationIndentation:
-  Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/NumericLiterals:
-  MinDigits: 15
-
 # Offense count: 5
 Style/RegexpLiteral:
   MaxSlashes: 0

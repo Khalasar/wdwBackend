@@ -10,7 +10,7 @@ class Photo < ActiveRecord::Base
 
   def caption
     photo_translations.find_by_language('en') &&
-    photo_translations.find_by_language('en').caption
+      photo_translations.find_by_language('en').caption
   end
 
   def to_jq_upload
