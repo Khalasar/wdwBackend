@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20141026111028) do
     t.integer "route_id"
   end
 
-  add_index "places_routes", ["place_id", "route_id"], name: "index_places_routes_on_place_id_and_route_id", using: :btree
+  add_index "places_routes", %w(place_id route_id), name: "index_places_routes_on_place_id_and_route_id", using: :btree
   add_index "places_routes", ["route_id"], name: "index_places_routes_on_route_id", using: :btree
 
   create_table "route_translations", force: true do |t|
