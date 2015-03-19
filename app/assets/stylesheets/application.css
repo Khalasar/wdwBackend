@@ -15,8 +15,8 @@
  *= require multi-select
  */
 
-@import "jquery.fileupload-ui";
-@import "bootstrap";
+@import "jquery.fileupload-ui.css";
+@import "bootstrap.min.css";
 
 body {
   padding: 50px 10px 0 10px;
