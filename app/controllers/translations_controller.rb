@@ -360,7 +360,7 @@ class TranslationsController < ApplicationController
         "satelliteLabel" => "Satelliet",
         "resume" => "Voortzetten",
         "done" => "Klaar"
-      },
+      }
     }
   end
 end
