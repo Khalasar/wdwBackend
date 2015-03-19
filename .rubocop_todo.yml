@@ -49,8 +49,3 @@ Style/Documentation:
 # Offense count: 5
 Style/RegexpLiteral:
   MaxSlashes: 0
-
-# Offense count: 2
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/VariableName:
-  Enabled: false

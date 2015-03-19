@@ -1,8 +1,8 @@
 file = File.read(Rails.root + 'app/assets/route1.json')
 
-routeJson = JSON.parse(file)
+route_json = JSON.parse(file)
 
-waypoints = routeJson['array']['dict']
+waypoints = route_json['array']['dict']
 
 points = []
 waypoints.each do |w|

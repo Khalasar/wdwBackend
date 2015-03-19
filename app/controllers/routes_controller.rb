@@ -19,10 +19,10 @@ class RoutesController < ApplicationController
 
   def save_places
     temp_place = nil
-    placesID = JSON.parse params[:placesID]
+    places_id = JSON.parse params[:places_id]
     @route.places = []
-    @route.place_order = placesID.join(',')
-    placesID.each do |id|
+    @route.place_order = places_id.join(',')
+    places_id.each do |id|
       @route.places << Place.find(id)
       temp_place = Place.find(id)
     end
