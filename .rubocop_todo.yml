@@ -57,20 +57,9 @@ Style/MultilineOperationIndentation:
 Style/NumericLiterals:
   MinDigits: 15
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Enabled: false
-
 # Offense count: 5
 Style/RegexpLiteral:
   MaxSlashes: 0
-
-# Offense count: 31
-# Cop supports --auto-correct.
-Style/SingleSpaceBeforeFirstArg:
-  Enabled: false
 
 # Offense count: 2
 # Configuration parameters: EnforcedStyle, SupportedStyles.

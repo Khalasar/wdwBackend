@@ -7,3 +7,6 @@ Metrics/LineLength:
     - db/schema.rb
     # TODO: Fix that
     - app/controllers/translations_controller.rb
+
+Style/SingleSpaceBeforeFirstArg:
+  Enabled: false
