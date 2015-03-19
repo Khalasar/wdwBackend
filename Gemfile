@@ -38,4 +38,5 @@ group :development, :test do
   gem 'minitest-rails'
   gem "factory_girl_rails", "~> 4.5.0"
   gem 'rubocop'
+  gem 'guard'
 end
