@@ -16,7 +16,7 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def extension_white_list
-     %w(txt)
+    %w(txt)
   end
 
   # Override the filename of the uploaded files:

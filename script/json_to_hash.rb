@@ -6,13 +6,13 @@ waypoints = routeJson['array']['dict']
 
 points = []
 waypoints.each do |w|
-	points << w['string'].tr('{}', '').split(',')
+  points << w['string'].tr('{}', '').split(',')
 end
 
 route = Route.find(4)
 
 points.each do |p|
-	route.waypoints.build(lat: p[0], lng: p[1])
+  route.waypoints.build(lat: p[0], lng: p[1])
 end
 
 route.save
