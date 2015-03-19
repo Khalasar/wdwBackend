@@ -40,4 +40,5 @@ group :development, :test do
   gem 'rubocop'
   gem 'guard-minitest'
   gem 'guard-rubocop'
+  gem 'spring-commands-testunit'
 end
