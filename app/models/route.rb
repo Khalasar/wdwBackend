@@ -53,7 +53,6 @@ class Route < ActiveRecord::Base
     end
   end
 
-
   def route_type
     if route_translations.find_by_language("de")
       route_translations.find_by_language("de").route_type
